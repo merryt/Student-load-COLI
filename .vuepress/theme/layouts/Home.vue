@@ -1,0 +1,3406 @@
+<template>
+  <div class="calculator">
+    <h1>Where can you live with your student loans?</h1>
+    <p>How much is your monthly payment?</p>
+    <input name="Money" type="text" placeholder="Don't be shy! 200? 400? 1000? " v-model="studentLoans" />
+
+    <p>Where would you like to live?</p>
+    <div>
+      <select id="state" name="State" v-model="selectedState">
+        <option v-for="state in states" :value="state.value">{{state.text}}</option>
+      </select>
+
+
+      <select id="city" name="City" v-if="selectedState" v-model="selectedCity">
+        <option v-for="city in cities" :value="city">{{city["Urban Area"]}}</option>
+      </select>
+    </div>
+    <div v-if="selectedCity">
+      <h3>In order to make your payments you would need aproximatly</h3>
+      <span class="result">{{costOfLiving}}$</span>
+    </div>
+  </div>
+</template>
+
+
+
+<style>
+ input{
+     width: calc(100% - 20px);
+
+ }
+ .calculator{
+     width: 100%;
+     margin: 10px
+ }
+ .result{
+     font-size:50px;
+ }
+</style>
+
+
+<script>
+
+export default{
+     computed: {
+         states() {
+             return states
+         },
+         cities(){
+             let citylist = []
+             citylist = costOfLivingIndex.filter(city => {
+                 return this.selectedState == city["Urban Area"].substr(-2)
+             })
+             return citylist
+         },
+         costOfLiving(){
+             let studentLoan = parseFloat(this.studentLoans).toFixed(2)
+             let costOfLiving = parseFloat(3200000/this.selectedCity["Composite Index"])
+             return (parseFloat(costOfLiving) + parseFloat(studentLoan)).toFixed(2)
+         }
+     },
+     data(){
+         return {
+             selectedState: false,
+             selectedCity: false,
+             studentLoans: 0
+         }
+
+    },
+ }
+
+
+
+
+const states  = [
+{ value: "AK", text: "Alaska" },
+{ value: "AL", text: "Alabama" },
+{ value: "AR", text: "Arkansas" },
+{ value: "AS", text: "American Samoa" },
+{ value: "AZ", text: "Arizona" },
+{ value: "CA", text: "California" },
+{ value: "CO", text: "Colorado" },
+{ value: "CT", text: "Connecticut" },
+{ value: "DC", text: "District of Columbia" },
+{ value: "DE", text: "Delaware" },
+{ value: "FL", text: "Florida" },
+{ value: "GA", text: "Georgia" },
+{ value: "GU", text: "Guam" },
+{ value: "HI", text: "Hawaii" },
+{ value: "IA", text: "Iowa" },
+{ value: "ID", text: "Idaho" },
+{ value: "IL", text: "Illinois" },
+{ value: "IN", text: "Indiana" },
+{ value: "KS", text: "Kansas" },
+{ value: "KY", text: "Kentucky" },
+{ value: "LA", text: "Louisiana" },
+{ value: "MA", text: "Massachusetts" },
+{ value: "MD", text: "Maryland" },
+{ value: "ME", text: "Maine" },
+{ value: "MI", text: "Michigan" },
+{ value: "MN", text: "Minnesota" },
+{ value: "MO", text: "Missouri" },
+{ value: "MS", text: "Mississippi" },
+{ value: "MT", text: "Montana" },
+{ value: "NC", text: "North Carolina" },
+{ value: "ND", text: "North Dakota" },
+{ value: "NE", text: "Nebraska" },
+{ value: "NH", text: "New Hampshire" },
+{ value: "NJ", text: "New Jersey" },
+{ value: "NM", text: "New Mexico" },
+{ value: "NV", text: "Nevada" },
+{ value: "NY", text: "New York" },
+{ value: "OH", text: "Ohio" },
+{ value: "OK", text: "Oklahoma" },
+{ value: "OR", text: "Oregon" },
+{ value: "PA", text: "Pennsylvania" },
+{ value: "PR", text: "Puerto Rico" },
+{ value: "RI", text: "Rhode Island" },
+{ value: "SC", text: "South Carolina" },
+{ value: "SD", text: "South Dakota" },
+{ value: "TN", text: "Tennessee" },
+{ value: "TX", text: "Texas" },
+{ value: "UT", text: "Utah" },
+{ value: "VA", text: "Virginia" },
+{ value: "VI", text: "Virgin Islands" },
+{ value: "VT", text: "Vermont" },
+{ value: "WA", text: "Washington" },
+{ value: "WI", text: "Wisconsin" },
+{ value: "WV", text: "West Virginia" },
+{ value: "WY", text: "Wyoming" }
+]
+
+ const costOfLivingIndex = [
+ {
+   "Urban Area": "Anniston-Calhoun, County, AL",
+   "Composite Index": 91.2,
+   "Grocery Items": 101.2,
+   "Housing": 74.8,
+   "Utilities": 111.2,
+   "Transportation": 88.8,
+   "Health Care": 89.3,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Akron OH",
+   "Composite Index": 100.2,
+   "Grocery Items": 105.1,
+   "Housing": 99.7,
+   "Utilities": 107.9,
+   "Transportation": 107.1,
+   "Health Care": 86.8,
+   "Miscalaneous Goods and Services": 96
+ },
+ {
+   "Urban Area": "Albany, GA",
+   "Composite Index": 90.1,
+   "Grocery Items": 108.7,
+   "Housing": 74.8,
+   "Utilities": 82,
+   "Transportation": 96.6,
+   "Health Care": 89.8,
+   "Miscalaneous Goods and Services": 96.8
+ },
+ {
+   "Urban Area": "Albany, NY",
+   "Composite Index": 108.1,
+   "Grocery Items": 105,
+   "Housing": 112.6,
+   "Utilities": 101,
+   "Transportation": 102.8,
+   "Health Care": 111.7,
+   "Miscalaneous Goods and Services": 108.6
+ },
+ {
+   "Urban Area": "Alexandria, LA",
+   "Composite Index": 95.1,
+   "Grocery Items": 96,
+   "Housing": 92.7,
+   "Utilities": 89.9,
+   "Transportation": 97.2,
+   "Health Care": 92.9,
+   "Miscalaneous Goods and Services": 98.2
+ },
+ {
+   "Urban Area": "Amarillo, TX",
+   "Composite Index": 89.5,
+   "Grocery Items": 89.9,
+   "Housing": 89.4,
+   "Utilities": 80.4,
+   "Transportation": 92.1,
+   "Health Care": 95.2,
+   "Miscalaneous Goods and Services": 90.8
+ },
+ {
+   "Urban Area": "Americus, GA",
+   "Composite Index": 88.3,
+   "Grocery Items": 105.5,
+   "Housing": 71,
+   "Utilities": 88.2,
+   "Transportation": 99.8,
+   "Health Care": 103.7,
+   "Miscalaneous Goods and Services": 91.3
+ },
+ {
+   "Urban Area": "Ames, IA",
+   "Composite Index": 96.8,
+   "Grocery Items": 93.7,
+   "Housing": 104.8,
+   "Utilities": 82.3,
+   "Transportation": 101.8,
+   "Health Care": 98.4,
+   "Miscalaneous Goods and Services": 93.7
+ },
+ {
+   "Urban Area": "Anchorage, AK",
+   "Composite Index": 128.4,
+   "Grocery Items": 134.5,
+   "Housing": 142.9,
+   "Utilities": 94.1,
+   "Transportation": 122,
+   "Health Care": 135.7,
+   "Miscalaneous Goods and Services": 124.8
+ },
+ {
+   "Urban Area": "Anderson, SC",
+   "Composite Index": 91.8,
+   "Grocery Items": 103.4,
+   "Housing": 77,
+   "Utilities": 101.6,
+   "Transportation": 92.3,
+   "Health Care": 99.7,
+   "Miscalaneous Goods and Services": 95.9
+ },
+ {
+   "Urban Area": "Appleton, WI",
+   "Composite Index": 93.3,
+   "Grocery Items": 93,
+   "Housing": 81.8,
+   "Utilities": 102.3,
+   "Transportation": 104.4,
+   "Health Care": 104.7,
+   "Miscalaneous Goods and Services": 96
+ },
+ {
+   "Urban Area": "Ardmore, OK",
+   "Composite Index": 87.3,
+   "Grocery Items": 92.9,
+   "Housing": 77.3,
+   "Utilities": 84.8,
+   "Transportation": 101.3,
+   "Health Care": 93.7,
+   "Miscalaneous Goods and Services": 89.8
+ },
+ {
+   "Urban Area": "Arlington, TX",
+   "Composite Index": 99.3,
+   "Grocery Items": 94.4,
+   "Housing": 89.4,
+   "Utilities": 109.9,
+   "Transportation": 98.3,
+   "Health Care": 105.4,
+   "Miscalaneous Goods and Services": 106.4
+ },
+ {
+   "Urban Area": "Asheville, NC",
+   "Composite Index": 101.1,
+   "Grocery Items": 104.6,
+   "Housing": 97.8,
+   "Utilities": 113.1,
+   "Transportation": 94.2,
+   "Health Care": 104.7,
+   "Miscalaneous Goods and Services": 100.6
+ },
+ {
+   "Urban Area": "Ashland, OH",
+   "Composite Index": 88.5,
+   "Grocery Items": 100.7,
+   "Housing": 72.1,
+   "Utilities": 92.1,
+   "Transportation": 98.2,
+   "Health Care": 88.8,
+   "Miscalaneous Goods and Services": 94.2
+ },
+ {
+   "Urban Area": "Atlanta, GA",
+   "Composite Index": 95.6,
+   "Grocery Items": 96.2,
+   "Housing": 90.7,
+   "Utilities": 86.3,
+   "Transportation": 99.3,
+   "Health Care": 103.3,
+   "Miscalaneous Goods and Services": 100.3
+ },
+ {
+   "Urban Area": "Auburn-Opelika, AL",
+   "Composite Index": 98.9,
+   "Grocery Items": 104.6,
+   "Housing": 90.2,
+   "Utilities": 101.3,
+   "Transportation": 92.9,
+   "Health Care": 88.4,
+   "Miscalaneous Goods and Services": 106.5
+ },
+ {
+   "Urban Area": "Augusta-Aiken, GA-SC",
+   "Composite Index": 93.2,
+   "Grocery Items": 106,
+   "Housing": 79.4,
+   "Utilities": 92.1,
+   "Transportation": 93.9,
+   "Health Care": 101.4,
+   "Miscalaneous Goods and Services": 99.4
+ },
+ {
+   "Urban Area": "Austin, TX",
+   "Composite Index": 95.5,
+   "Grocery Items": 89.3,
+   "Housing": 85.1,
+   "Utilities": 110.7,
+   "Transportation": 100.2,
+   "Health Care": 100.3,
+   "Miscalaneous Goods and Services": 100.4
+ },
+ {
+   "Urban Area": "Bakersfield, CA",
+   "Composite Index": 103.4,
+   "Grocery Items": 107.6,
+   "Housing": 98.4,
+   "Utilities": 104.3,
+   "Transportation": 111.3,
+   "Health Care": 107.2,
+   "Miscalaneous Goods and Services": 103.1
+ },
+ {
+   "Urban Area": "Baltimore, MD",
+   "Composite Index": 119.4,
+   "Grocery Items": 110.8,
+   "Housing": 155.4,
+   "Utilities": 112.5,
+   "Transportation": 105.3,
+   "Health Care": 97.9,
+   "Miscalaneous Goods and Services": 100
+ },
+ {
+   "Urban Area": "Baton, Rouge, LA",
+   "Composite Index": 96.1,
+   "Grocery Items": 100.4,
+   "Housing": 102.2,
+   "Utilities": 78.2,
+   "Transportation": 90.4,
+   "Health Care": 97.7,
+   "Miscalaneous Goods and Services": 95.8
+ },
+ {
+   "Urban Area": "Beaufort, SC",
+   "Composite Index": 105.2,
+   "Grocery Items": 106.9,
+   "Housing": 103.5,
+   "Utilities": 114.3,
+   "Transportation": 99.6,
+   "Health Care": 95.7,
+   "Miscalaneous Goods and Services": 106
+ },
+ {
+   "Urban Area": "Beaumont, TX",
+   "Composite Index": 95.7,
+   "Grocery Items": 87.1,
+   "Housing": 95.9,
+   "Utilities": 92.5,
+   "Transportation": 100.4,
+   "Health Care": 98.7,
+   "Miscalaneous Goods and Services": 98.1
+ },
+ {
+   "Urban Area": "Bellingham, WA",
+   "Composite Index": 113,
+   "Grocery Items": 114.9,
+   "Housing": 135.9,
+   "Utilities": 83.8,
+   "Transportation": 113.2,
+   "Health Care": 115.3,
+   "Miscalaneous Goods and Services": 100.8
+ },
+ {
+   "Urban Area": "Bergen-Passaic, NJ",
+   "Composite Index": 131.3,
+   "Grocery Items": 112.1,
+   "Housing": 174,
+   "Utilities": 128.9,
+   "Transportation": 102.4,
+   "Health Care": 106.3,
+   "Miscalaneous Goods and Services": 113.8
+ },
+ {
+   "Urban Area": "Bethesda-Gaithersburg-Frederick, MD",
+   "Composite Index": 130.5,
+   "Grocery Items": 108.5,
+   "Housing": 184.2,
+   "Utilities": 120.6,
+   "Transportation": 110.1,
+   "Health Care": 104,
+   "Miscalaneous Goods and Services": 104.4
+ },
+ {
+   "Urban Area": "Binghamton, NY",
+   "Composite Index": 98.4,
+   "Grocery Items": 92.4,
+   "Housing": 92.6,
+   "Utilities": 112.8,
+   "Transportation": 104.4,
+   "Health Care": 114.3,
+   "Miscalaneous Goods and Services": 97.7
+ },
+ {
+   "Urban Area": "Birmingham, AL",
+   "Composite Index": 90.8,
+   "Grocery Items": 93.5,
+   "Housing": 73.2,
+   "Utilities": 105.7,
+   "Transportation": 93.5,
+   "Health Care": 87.9,
+   "Miscalaneous Goods and Services": 100.3
+ },
+ {
+   "Urban Area": "Bismarck-Mandan, ND",
+   "Composite Index": 95.3,
+   "Grocery Items": 105.9,
+   "Housing": 91.5,
+   "Utilities": 70.1,
+   "Transportation": 102.6,
+   "Health Care": 100.5,
+   "Miscalaneous Goods and Services": 99.4
+ },
+ {
+   "Urban Area": "Blacksburg, VA",
+   "Composite Index": 95,
+   "Grocery Items": 91.5,
+   "Housing": 94.9,
+   "Utilities": 102.3,
+   "Transportation": 91.1,
+   "Health Care": 97.5,
+   "Miscalaneous Goods and Services": 95.1
+ },
+ {
+   "Urban Area": "Boise, ID",
+   "Composite Index": 97.2,
+   "Grocery Items": 98.5,
+   "Housing": 84,
+   "Utilities": 99.6,
+   "Transportation": 108,
+   "Health Care": 106.6,
+   "Miscalaneous Goods and Services": 103.3
+ },
+ {
+   "Urban Area": "Boston, MA",
+   "Composite Index": 132.5,
+   "Grocery Items": 116.7,
+   "Housing": 152.7,
+   "Utilities": 138.6,
+   "Transportation": 104.5,
+   "Health Care": 123.5,
+   "Miscalaneous Goods and Services": 128.6
+ },
+ {
+   "Urban Area": "Bowling, Green, KY",
+   "Composite Index": 90.7,
+   "Grocery Items": 93.3,
+   "Housing": 78.2,
+   "Utilities": 104.3,
+   "Transportation": 96.7,
+   "Health Care": 95.8,
+   "Miscalaneous Goods and Services": 94
+ },
+ {
+   "Urban Area": "Bozeman, MT",
+   "Composite Index": 102,
+   "Grocery Items": 107.3,
+   "Housing": 101.8,
+   "Utilities": 89.1,
+   "Transportation": 101.6,
+   "Health Care": 102.4,
+   "Miscalaneous Goods and Services": 104
+ },
+ {
+   "Urban Area": "Bradenton, FL",
+   "Composite Index": 95.8,
+   "Grocery Items": 106.6,
+   "Housing": 90.2,
+   "Utilities": 90.4,
+   "Transportation": 101.3,
+   "Health Care": 98.8,
+   "Miscalaneous Goods and Services": 96.1
+ },
+ {
+   "Urban Area": "Brazoria, County, TX",
+   "Composite Index": 89.3,
+   "Grocery Items": 87.9,
+   "Housing": 75.8,
+   "Utilities": 100.8,
+   "Transportation": 96,
+   "Health Care": 95.6,
+   "Miscalaneous Goods and Services": 95.6
+ },
+ {
+   "Urban Area": "Brownsville, TX",
+   "Composite Index": 85.8,
+   "Grocery Items": 88.6,
+   "Housing": 71,
+   "Utilities": 93.1,
+   "Transportation": 95,
+   "Health Care": 96.5,
+   "Miscalaneous Goods and Services": 91.4
+ },
+ {
+   "Urban Area": "Buffalo, NY",
+   "Composite Index": 95.8,
+   "Grocery Items": 91.8,
+   "Housing": 97.4,
+   "Utilities": 115.6,
+   "Transportation": 104.8,
+   "Health Care": 92,
+   "Miscalaneous Goods and Services": 87.6
+ },
+ {
+   "Urban Area": "Burlington, IA",
+   "Composite Index": 97,
+   "Grocery Items": 93.8,
+   "Housing": 94.6,
+   "Utilities": 108.6,
+   "Transportation": 98.6,
+   "Health Care": 89.9,
+   "Miscalaneous Goods and Services": 97.1
+ },
+ {
+   "Urban Area": "Burlington, NC",
+   "Composite Index": 94.6,
+   "Grocery Items": 98.6,
+   "Housing": 86,
+   "Utilities": 82.3,
+   "Transportation": 97.5,
+   "Health Care": 102.5,
+   "Miscalaneous Goods and Services": 102.5
+ },
+ {
+   "Urban Area": "Burlington-Chittenden, Co, VT",
+   "Composite Index": 120.5,
+   "Grocery Items": 112.9,
+   "Housing": 138.7,
+   "Utilities": 122.2,
+   "Transportation": 102.5,
+   "Health Care": 104.6,
+   "Miscalaneous Goods and Services": 114.2
+ },
+ {
+   "Urban Area": "Camden, SC",
+   "Composite Index": 97.4,
+   "Grocery Items": 103.4,
+   "Housing": 87.8,
+   "Utilities": 107.5,
+   "Transportation": 86,
+   "Health Care": 93.1,
+   "Miscalaneous Goods and Services": 104.3
+ },
+ {
+   "Urban Area": "Cape, Coral-Fort, Myers, FL",
+   "Composite Index": 95.6,
+   "Grocery Items": 107.9,
+   "Housing": 87.5,
+   "Utilities": 83.7,
+   "Transportation": 103,
+   "Health Care": 98.7,
+   "Miscalaneous Goods and Services": 98.9
+ },
+ {
+   "Urban Area": "Carlsbad, NM",
+   "Composite Index": 95.4,
+   "Grocery Items": 102.6,
+   "Housing": 86.6,
+   "Utilities": 99.3,
+   "Transportation": 95.3,
+   "Health Care": 96,
+   "Miscalaneous Goods and Services": 98.9
+ },
+ {
+   "Urban Area": "Cedar, City, UT",
+   "Composite Index": 88.7,
+   "Grocery Items": 102.5,
+   "Housing": 73.9,
+   "Utilities": 83.7,
+   "Transportation": 97.8,
+   "Health Care": 85.5,
+   "Miscalaneous Goods and Services": 95.5
+ },
+ {
+   "Urban Area": "Cedar, Rapids, IA",
+   "Composite Index": 92,
+   "Grocery Items": 94.8,
+   "Housing": 79.1,
+   "Utilities": 101.6,
+   "Transportation": 97.1,
+   "Health Care": 94.4,
+   "Miscalaneous Goods and Services": 97.5
+ },
+ {
+   "Urban Area": "Champaign-Urbana, IL",
+   "Composite Index": 96.9,
+   "Grocery Items": 98.5,
+   "Housing": 90.8,
+   "Utilities": 97.1,
+   "Transportation": 98.2,
+   "Health Care": 100.5,
+   "Miscalaneous Goods and Services": 100.7
+ },
+ {
+   "Urban Area": "Chapel, Hill, NC",
+   "Composite Index": 113,
+   "Grocery Items": 100.9,
+   "Housing": 127,
+   "Utilities": 85.7,
+   "Transportation": 122.8,
+   "Health Care": 105.8,
+   "Miscalaneous Goods and Services": 112.1
+ },
+ {
+   "Urban Area": "Charleston, WV",
+   "Composite Index": 92.7,
+   "Grocery Items": 88.8,
+   "Housing": 89.3,
+   "Utilities": 96.7,
+   "Transportation": 102.9,
+   "Health Care": 93.9,
+   "Miscalaneous Goods and Services": 92.9
+ },
+ {
+   "Urban Area": "Charleston-N, Charleston, SC",
+   "Composite Index": 98.3,
+   "Grocery Items": 105.7,
+   "Housing": 92.6,
+   "Utilities": 96.6,
+   "Transportation": 93.9,
+   "Health Care": 104.4,
+   "Miscalaneous Goods and Services": 101.5
+ },
+ {
+   "Urban Area": "Charlotte, NC",
+   "Composite Index": 93.2,
+   "Grocery Items": 97.1,
+   "Housing": 79.5,
+   "Utilities": 91.2,
+   "Transportation": 95.7,
+   "Health Care": 110.3,
+   "Miscalaneous Goods and Services": 101.4
+ },
+ {
+   "Urban Area": "Charlottesville, VA",
+   "Composite Index": 107,
+   "Grocery Items": 101.2,
+   "Housing": 122.6,
+   "Utilities": 100.8,
+   "Transportation": 90.6,
+   "Health Care": 94.5,
+   "Miscalaneous Goods and Services": 104
+ },
+ {
+   "Urban Area": "Chattanooga, TN",
+   "Composite Index": 91.1,
+   "Grocery Items": 97.4,
+   "Housing": 84,
+   "Utilities": 82.5,
+   "Transportation": 96.4,
+   "Health Care": 93.3,
+   "Miscalaneous Goods and Services": 95.7
+ },
+ {
+   "Urban Area": "Cheyenne, WY",
+   "Composite Index": 100.5,
+   "Grocery Items": 101.7,
+   "Housing": 107.9,
+   "Utilities": 96.3,
+   "Transportation": 95,
+   "Health Care": 98.3,
+   "Miscalaneous Goods and Services": 96.5
+ },
+ {
+   "Urban Area": "Chicago, IL",
+   "Composite Index": 116.9,
+   "Grocery Items": 111.2,
+   "Housing": 134.8,
+   "Utilities": 117.3,
+   "Transportation": 116.5,
+   "Health Care": 108.5,
+   "Miscalaneous Goods and Services": 104.4
+ },
+ {
+   "Urban Area": "Cincinnati, OH",
+   "Composite Index": 93.8,
+   "Grocery Items": 96.4,
+   "Housing": 81.9,
+   "Utilities": 103.8,
+   "Transportation": 98,
+   "Health Care": 95.8,
+   "Miscalaneous Goods and Services": 98.7
+ },
+ {
+   "Urban Area": "Clarksburg, WV",
+   "Composite Index": 95,
+   "Grocery Items": 95.2,
+   "Housing": 93.1,
+   "Utilities": 92.2,
+   "Transportation": 103.8,
+   "Health Care": 89.5,
+   "Miscalaneous Goods and Services": 95.5
+ },
+ {
+   "Urban Area": "Clarksville, TN",
+   "Composite Index": 93,
+   "Grocery Items": 87.9,
+   "Housing": 86,
+   "Utilities": 86.5,
+   "Transportation": 93.9,
+   "Health Care": 98.7,
+   "Miscalaneous Goods and Services": 102.3
+ },
+ {
+   "Urban Area": "Cleveland, OH",
+   "Composite Index": 101,
+   "Grocery Items": 108.1,
+   "Housing": 93.3,
+   "Utilities": 109,
+   "Transportation": 101.4,
+   "Health Care": 104.3,
+   "Miscalaneous Goods and Services": 102.1
+ },
+ {
+   "Urban Area": "Cleveland, TN",
+   "Composite Index": 93.4,
+   "Grocery Items": 101.6,
+   "Housing": 87.7,
+   "Utilities": 103.4,
+   "Transportation": 91.9,
+   "Health Care": 91.3,
+   "Miscalaneous Goods and Services": 92.9
+ },
+ {
+   "Urban Area": "Colorado, Springs, CO",
+   "Composite Index": 92.8,
+   "Grocery Items": 95.4,
+   "Housing": 92,
+   "Utilities": 86.8,
+   "Transportation": 96.2,
+   "Health Care": 102.3,
+   "Miscalaneous Goods and Services": 92.1
+ },
+ {
+   "Urban Area": "Columbia, MO",
+   "Composite Index": 91.8,
+   "Grocery Items": 92.6,
+   "Housing": 81.4,
+   "Utilities": 90.4,
+   "Transportation": 96.3,
+   "Health Care": 96.4,
+   "Miscalaneous Goods and Services": 99.1
+ },
+ {
+   "Urban Area": "Columbia, SC",
+   "Composite Index": 100.4,
+   "Grocery Items": 105.2,
+   "Housing": 82.3,
+   "Utilities": 109,
+   "Transportation": 102,
+   "Health Care": 106.2,
+   "Miscalaneous Goods and Services": 110.6
+ },
+ {
+   "Urban Area": "Columbus, OH",
+   "Composite Index": 92,
+   "Grocery Items": 91.6,
+   "Housing": 86.2,
+   "Utilities": 100.2,
+   "Transportation": 99.1,
+   "Health Care": 107.7,
+   "Miscalaneous Goods and Services": 90.6
+ },
+ {
+   "Urban Area": "Conroe, TX",
+   "Composite Index": 91.4,
+   "Grocery Items": 89.4,
+   "Housing": 80.1,
+   "Utilities": 96.1,
+   "Transportation": 93.8,
+   "Health Care": 95,
+   "Miscalaneous Goods and Services": 99.7
+ },
+ {
+   "Urban Area": "Conway, AR",
+   "Composite Index": 86.6,
+   "Grocery Items": 97.9,
+   "Housing": 78.8,
+   "Utilities": 92,
+   "Transportation": 96.6,
+   "Health Care": 89.8,
+   "Miscalaneous Goods and Services": 84
+ },
+ {
+   "Urban Area": "Cookeville, TN",
+   "Composite Index": 85.7,
+   "Grocery Items": 86.7,
+   "Housing": 71.4,
+   "Utilities": 82.9,
+   "Transportation": 87.5,
+   "Health Care": 87.1,
+   "Miscalaneous Goods and Services": 98.2
+ },
+ {
+   "Urban Area": "Corpus, Christi, TX",
+   "Composite Index": 90.8,
+   "Grocery Items": 82.4,
+   "Housing": 79.6,
+   "Utilities": 113.5,
+   "Transportation": 93.3,
+   "Health Care": 92.8,
+   "Miscalaneous Goods and Services": 96
+ },
+ {
+   "Urban Area": "Covington, KY",
+   "Composite Index": 87.8,
+   "Grocery Items": 86,
+   "Housing": 76.8,
+   "Utilities": 100.2,
+   "Transportation": 99.9,
+   "Health Care": 90.6,
+   "Miscalaneous Goods and Services": 90.3
+ },
+ {
+   "Urban Area": "Dallas, TX",
+   "Composite Index": 91.9,
+   "Grocery Items": 96.2,
+   "Housing": 70.7,
+   "Utilities": 105.5,
+   "Transportation": 100.9,
+   "Health Care": 103.8,
+   "Miscalaneous Goods and Services": 100.4
+ },
+ {
+   "Urban Area": "Danville, IL",
+   "Composite Index": 91.1,
+   "Grocery Items": 94.6,
+   "Housing": 74.2,
+   "Utilities": 116.4,
+   "Transportation": 109.3,
+   "Health Care": 95.8,
+   "Miscalaneous Goods and Services": 90.7
+ },
+ {
+   "Urban Area": "Dare, County, NC",
+   "Composite Index": 107.3,
+   "Grocery Items": 111.7,
+   "Housing": 116.7,
+   "Utilities": 92.9,
+   "Transportation": 110.2,
+   "Health Care": 111.7,
+   "Miscalaneous Goods and Services": 100.4
+ },
+ {
+   "Urban Area": "Davenport-Moline-Rock, Is, IA-IL",
+   "Composite Index": 96.8,
+   "Grocery Items": 98.7,
+   "Housing": 98.7,
+   "Utilities": 81.4,
+   "Transportation": 104.3,
+   "Health Care": 97.9,
+   "Miscalaneous Goods and Services": 96.8
+ },
+ {
+   "Urban Area": "Dayton, OH",
+   "Composite Index": 91.4,
+   "Grocery Items": 89.2,
+   "Housing": 74.5,
+   "Utilities": 106.1,
+   "Transportation": 103.1,
+   "Health Care": 93.2,
+   "Miscalaneous Goods and Services": 99
+ },
+ {
+   "Urban Area": "Decatur, IL",
+   "Composite Index": 91.4,
+   "Grocery Items": 89.1,
+   "Housing": 88.2,
+   "Utilities": 92.2,
+   "Transportation": 96.7,
+   "Health Care": 91.9,
+   "Miscalaneous Goods and Services": 93.3
+ },
+ {
+   "Urban Area": "Decatur-Hartselle, AL",
+   "Composite Index": 89.2,
+   "Grocery Items": 98.5,
+   "Housing": 74.2,
+   "Utilities": 90.6,
+   "Transportation": 96.7,
+   "Health Care": 85.5,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Denver, CO",
+   "Composite Index": 103.2,
+   "Grocery Items": 101,
+   "Housing": 107.5,
+   "Utilities": 101.9,
+   "Transportation": 95.4,
+   "Health Care": 105.9,
+   "Miscalaneous Goods and Services": 102.7
+ },
+ {
+   "Urban Area": "Des, Moines, IA",
+   "Composite Index": 90.9,
+   "Grocery Items": 90.9,
+   "Housing": 89.6,
+   "Utilities": 90.2,
+   "Transportation": 95.9,
+   "Health Care": 90.8,
+   "Miscalaneous Goods and Services": 90.9
+ },
+ {
+   "Urban Area": "Detroit, MI",
+   "Composite Index": 99.4,
+   "Grocery Items": 92.7,
+   "Housing": 95.2,
+   "Utilities": 129.5,
+   "Transportation": 101.3,
+   "Health Care": 94.2,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Dodge, City, KS",
+   "Composite Index": 89.3,
+   "Grocery Items": 90,
+   "Housing": 77.6,
+   "Utilities": 85.5,
+   "Transportation": 95.6,
+   "Health Care": 89.9,
+   "Miscalaneous Goods and Services": 98.5
+ },
+ {
+   "Urban Area": "Dothan, AL",
+   "Composite Index": 89.8,
+   "Grocery Items": 100.3,
+   "Housing": 80.1,
+   "Utilities": 79.7,
+   "Transportation": 91.8,
+   "Health Care": 81.7,
+   "Miscalaneous Goods and Services": 97.9
+ },
+ {
+   "Urban Area": "Douglas, GA",
+   "Composite Index": 88.6,
+   "Grocery Items": 104.1,
+   "Housing": 68.5,
+   "Utilities": 97.9,
+   "Transportation": 89.3,
+   "Health Care": 91.3,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Dover, DE",
+   "Composite Index": 99.7,
+   "Grocery Items": 110.4,
+   "Housing": 90.9,
+   "Utilities": 108.8,
+   "Transportation": 97.5,
+   "Health Care": 103,
+   "Miscalaneous Goods and Services": 100.7
+ },
+ {
+   "Urban Area": "Dubuque, IA",
+   "Composite Index": 95.9,
+   "Grocery Items": 98.1,
+   "Housing": 86.5,
+   "Utilities": 105.2,
+   "Transportation": 99.5,
+   "Health Care": 96.5,
+   "Miscalaneous Goods and Services": 99.5
+ },
+ {
+   "Urban Area": "Durham, NC",
+   "Composite Index": 96.6,
+   "Grocery Items": 97.9,
+   "Housing": 86.8,
+   "Utilities": 96.3,
+   "Transportation": 105.5,
+   "Health Care": 108.5,
+   "Miscalaneous Goods and Services": 100.6
+ },
+ {
+   "Urban Area": "Dutchess, County, NY",
+   "Composite Index": 120.4,
+   "Grocery Items": 109.8,
+   "Housing": 141.3,
+   "Utilities": 118.8,
+   "Transportation": 109.3,
+   "Health Care": 110.4,
+   "Miscalaneous Goods and Services": 111.1
+ },
+ {
+   "Urban Area": "Dyersburg, TN",
+   "Composite Index": 88.6,
+   "Grocery Items": 93.4,
+   "Housing": 73.8,
+   "Utilities": 95.2,
+   "Transportation": 92.9,
+   "Health Care": 86.3,
+   "Miscalaneous Goods and Services": 96.7
+ },
+ {
+   "Urban Area": "Eau, Claire, WI",
+   "Composite Index": 93.7,
+   "Grocery Items": 97.6,
+   "Housing": 90.5,
+   "Utilities": 84.8,
+   "Transportation": 103.1,
+   "Health Care": 105.5,
+   "Miscalaneous Goods and Services": 93.5
+ },
+ {
+   "Urban Area": "Edmond, OK",
+   "Composite Index": 91.6,
+   "Grocery Items": 88.7,
+   "Housing": 82.8,
+   "Utilities": 90.2,
+   "Transportation": 97.7,
+   "Health Care": 94.3,
+   "Miscalaneous Goods and Services": 98.9
+ },
+ {
+   "Urban Area": "El, Paso, TX",
+   "Composite Index": 90.4,
+   "Grocery Items": 99.9,
+   "Housing": 86,
+   "Utilities": 88.1,
+   "Transportation": 97,
+   "Health Care": 95.4,
+   "Miscalaneous Goods and Services": 88.5
+ },
+ {
+   "Urban Area": "Elkhart-Goshen, IN",
+   "Composite Index": 94,
+   "Grocery Items": 91.4,
+   "Housing": 92.7,
+   "Utilities": 84.5,
+   "Transportation": 99.7,
+   "Health Care": 92.8,
+   "Miscalaneous Goods and Services": 97.5
+ },
+ {
+   "Urban Area": "Enid, OK",
+   "Composite Index": 93.6,
+   "Grocery Items": 103.5,
+   "Housing": 77.4,
+   "Utilities": 96.1,
+   "Transportation": 99.5,
+   "Health Care": 99.5,
+   "Miscalaneous Goods and Services": 100.7
+ },
+ {
+   "Urban Area": "Erie, PA",
+   "Composite Index": 92.1,
+   "Grocery Items": 96.4,
+   "Housing": 91.1,
+   "Utilities": 96,
+   "Transportation": 98.4,
+   "Health Care": 91.2,
+   "Miscalaneous Goods and Services": 88.4
+ },
+ {
+   "Urban Area": "Eugene, OR",
+   "Composite Index": 109.8,
+   "Grocery Items": 93.8,
+   "Housing": 132.3,
+   "Utilities": 85.3,
+   "Transportation": 110,
+   "Health Care": 118.2,
+   "Miscalaneous Goods and Services": 102.9
+ },
+ {
+   "Urban Area": "Evansville, IN",
+   "Composite Index": 96.2,
+   "Grocery Items": 97.9,
+   "Housing": 86.3,
+   "Utilities": 120,
+   "Transportation": 97.1,
+   "Health Care": 97.4,
+   "Miscalaneous Goods and Services": 96.4
+ },
+ {
+   "Urban Area": "Everett, WA",
+   "Composite Index": 111.3,
+   "Grocery Items": 112,
+   "Housing": 128.1,
+   "Utilities": 85.4,
+   "Transportation": 110.4,
+   "Health Care": 129.1,
+   "Miscalaneous Goods and Services": 102.1
+ },
+ {
+   "Urban Area": "Fairbanks, AK",
+   "Composite Index": 137.4,
+   "Grocery Items": 127.9,
+   "Housing": 148.5,
+   "Utilities": 193.1,
+   "Transportation": 118.7,
+   "Health Care": 144.9,
+   "Miscalaneous Goods and Services": 118.8
+ },
+ {
+   "Urban Area": "Fargo-Moorhead, ND-MN",
+   "Composite Index": 92.7,
+   "Grocery Items": 99.8,
+   "Housing": 87.4,
+   "Utilities": 78.7,
+   "Transportation": 95.8,
+   "Health Care": 102.4,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Farmington, NM",
+   "Composite Index": 97,
+   "Grocery Items": 101.8,
+   "Housing": 97.1,
+   "Utilities": 87.1,
+   "Transportation": 96.4,
+   "Health Care": 98.6,
+   "Miscalaneous Goods and Services": 98.2
+ },
+ {
+   "Urban Area": "Fayetteville, AR",
+   "Composite Index": 92.1,
+   "Grocery Items": 95.3,
+   "Housing": 77.3,
+   "Utilities": 99.8,
+   "Transportation": 95.2,
+   "Health Care": 92.7,
+   "Miscalaneous Goods and Services": 100.6
+ },
+ {
+   "Urban Area": "Fayetteville, NC",
+   "Composite Index": 95.2,
+   "Grocery Items": 105.1,
+   "Housing": 82.5,
+   "Utilities": 92.8,
+   "Transportation": 96,
+   "Health Care": 117.9,
+   "Miscalaneous Goods and Services": 100.1
+ },
+ {
+   "Urban Area": "Findlay, OH",
+   "Composite Index": 94.3,
+   "Grocery Items": 102.3,
+   "Housing": 77,
+   "Utilities": 95.8,
+   "Transportation": 100.6,
+   "Health Care": 91.2,
+   "Miscalaneous Goods and Services": 104.3
+ },
+ {
+   "Urban Area": "Fitchburg-Leominster, MA",
+   "Composite Index": 103.3,
+   "Grocery Items": 99.3,
+   "Housing": 97.1,
+   "Utilities": 140.6,
+   "Transportation": 99.9,
+   "Health Care": 112.3,
+   "Miscalaneous Goods and Services": 98.6
+ },
+ {
+   "Urban Area": "Flagstaff, AZ",
+   "Composite Index": 114.9,
+   "Grocery Items": 106.6,
+   "Housing": 149.3,
+   "Utilities": 92.5,
+   "Transportation": 105.5,
+   "Health Care": 100,
+   "Miscalaneous Goods and Services": 99.5
+ },
+ {
+   "Urban Area": "Florence, AL",
+   "Composite Index": 90.2,
+   "Grocery Items": 96.6,
+   "Housing": 79.6,
+   "Utilities": 91,
+   "Transportation": 94.5,
+   "Health Care": 84.1,
+   "Miscalaneous Goods and Services": 96.3
+ },
+ {
+   "Urban Area": "Fort, Lauderdale, FL",
+   "Composite Index": 115.7,
+   "Grocery Items": 112.5,
+   "Housing": 144,
+   "Utilities": 92.5,
+   "Transportation": 106.3,
+   "Health Care": 102.4,
+   "Miscalaneous Goods and Services": 103.7
+ },
+ {
+   "Urban Area": "Fort, Smith, AR",
+   "Composite Index": 86.1,
+   "Grocery Items": 92.5,
+   "Housing": 74.5,
+   "Utilities": 90.5,
+   "Transportation": 87.9,
+   "Health Care": 87.5,
+   "Miscalaneous Goods and Services": 91.7
+ },
+ {
+   "Urban Area": "Fort, Wayne-Allen, County, IN",
+   "Composite Index": 94.4,
+   "Grocery Items": 93.3,
+   "Housing": 89.3,
+   "Utilities": 87.3,
+   "Transportation": 106.9,
+   "Health Care": 93.4,
+   "Miscalaneous Goods and Services": 98
+ },
+ {
+   "Urban Area": "Fort, Worth, TX",
+   "Composite Index": 91.1,
+   "Grocery Items": 89.8,
+   "Housing": 78,
+   "Utilities": 106.2,
+   "Transportation": 97.6,
+   "Health Care": 93.8,
+   "Miscalaneous Goods and Services": 96.1
+ },
+ {
+   "Urban Area": "Framingham-Natick, MA",
+   "Composite Index": 134.5,
+   "Grocery Items": 109.4,
+   "Housing": 177.2,
+   "Utilities": 131.9,
+   "Transportation": 105,
+   "Health Care": 116.1,
+   "Miscalaneous Goods and Services": 118.8
+ },
+ {
+   "Urban Area": "Fresno, CA",
+   "Composite Index": 117.3,
+   "Grocery Items": 115.8,
+   "Housing": 131.2,
+   "Utilities": 123.6,
+   "Transportation": 114.5,
+   "Health Care": 106.8,
+   "Miscalaneous Goods and Services": 105.9
+ },
+ {
+   "Urban Area": "Gainesville, FL",
+   "Composite Index": 99.8,
+   "Grocery Items": 106.3,
+   "Housing": 101.8,
+   "Utilities": 99.2,
+   "Transportation": 103.3,
+   "Health Care": 92.7,
+   "Miscalaneous Goods and Services": 95.5
+ },
+ {
+   "Urban Area": "Galesburg, IL",
+   "Composite Index": 93,
+   "Grocery Items": 99.7,
+   "Housing": 80,
+   "Utilities": 103.1,
+   "Transportation": 96.1,
+   "Health Care": 97.3,
+   "Miscalaneous Goods and Services": 97.2
+ },
+ {
+   "Urban Area": "Garden, City, KS",
+   "Composite Index": 89.7,
+   "Grocery Items": 91.2,
+   "Housing": 79.9,
+   "Utilities": 86.5,
+   "Transportation": 94,
+   "Health Care": 89.6,
+   "Miscalaneous Goods and Services": 97.5
+ },
+ {
+   "Urban Area": "Glens, Falls, NY",
+   "Composite Index": 112.3,
+   "Grocery Items": 105.4,
+   "Housing": 105.9,
+   "Utilities": 128,
+   "Transportation": 107,
+   "Health Care": 97.3,
+   "Miscalaneous Goods and Services": 119.3
+ },
+ {
+   "Urban Area": "Glenwood, Springs, CO",
+   "Composite Index": 124,
+   "Grocery Items": 103.3,
+   "Housing": 169,
+   "Utilities": 89,
+   "Transportation": 110.9,
+   "Health Care": 112,
+   "Miscalaneous Goods and Services": 108.7
+ },
+ {
+   "Urban Area": "Grand, Junction, CO",
+   "Composite Index": 98.3,
+   "Grocery Items": 101.9,
+   "Housing": 105.4,
+   "Utilities": 86.4,
+   "Transportation": 99.1,
+   "Health Care": 103.8,
+   "Miscalaneous Goods and Services": 93.1
+ },
+ {
+   "Urban Area": "Grand, Rapids, MI",
+   "Composite Index": 90.7,
+   "Grocery Items": 102.7,
+   "Housing": 77.6,
+   "Utilities": 100.6,
+   "Transportation": 103.7,
+   "Health Care": 94.4,
+   "Miscalaneous Goods and Services": 90
+ },
+ {
+   "Urban Area": "Green, Bay, WI",
+   "Composite Index": 95.1,
+   "Grocery Items": 88.8,
+   "Housing": 83.5,
+   "Utilities": 118.6,
+   "Transportation": 100.2,
+   "Health Care": 105.9,
+   "Miscalaneous Goods and Services": 97.7
+ },
+ {
+   "Urban Area": "Greenville, NC",
+   "Composite Index": 98.5,
+   "Grocery Items": 105.9,
+   "Housing": 84.4,
+   "Utilities": 108.5,
+   "Transportation": 97.6,
+   "Health Care": 113.5,
+   "Miscalaneous Goods and Services": 103.3
+ },
+ {
+   "Urban Area": "Greenville, SC",
+   "Composite Index": 90.3,
+   "Grocery Items": 102.7,
+   "Housing": 72.9,
+   "Utilities": 90.1,
+   "Transportation": 97.1,
+   "Health Care": 98.2,
+   "Miscalaneous Goods and Services": 97.7
+ },
+ {
+   "Urban Area": "Gunnison, CO",
+   "Composite Index": 110,
+   "Grocery Items": 110.6,
+   "Housing": 134.5,
+   "Utilities": 85.7,
+   "Transportation": 99,
+   "Health Care": 97.3,
+   "Miscalaneous Goods and Services": 100.6
+ },
+ {
+   "Urban Area": "Hammond, LA",
+   "Composite Index": 95.9,
+   "Grocery Items": 99,
+   "Housing": 95.8,
+   "Utilities": 84.8,
+   "Transportation": 93,
+   "Health Care": 97.4,
+   "Miscalaneous Goods and Services": 98.9
+ },
+ {
+   "Urban Area": "Hampton, Roads-SE, Virginia, VA",
+   "Composite Index": 111.7,
+   "Grocery Items": 106.6,
+   "Housing": 121.9,
+   "Utilities": 108.4,
+   "Transportation": 104.1,
+   "Health Care": 109.6,
+   "Miscalaneous Goods and Services": 108.4
+ },
+ {
+   "Urban Area": "Harlingen, TX",
+   "Composite Index": 82.8,
+   "Grocery Items": 81.5,
+   "Housing": 75.8,
+   "Utilities": 105.6,
+   "Transportation": 88.7,
+   "Health Care": 95.2,
+   "Miscalaneous Goods and Services": 79.1
+ },
+ {
+   "Urban Area": "Harrisburg, PA",
+   "Composite Index": 99.7,
+   "Grocery Items": 97.8,
+   "Housing": 91.5,
+   "Utilities": 110.5,
+   "Transportation": 100.2,
+   "Health Care": 93.8,
+   "Miscalaneous Goods and Services": 105.1
+ },
+ {
+   "Urban Area": "Harrisonburg, VA",
+   "Composite Index": 97,
+   "Grocery Items": 97.5,
+   "Housing": 96.8,
+   "Utilities": 96.8,
+   "Transportation": 90.4,
+   "Health Care": 100.8,
+   "Miscalaneous Goods and Services": 98.6
+ },
+ {
+   "Urban Area": "Hartford, CT",
+   "Composite Index": 121.8,
+   "Grocery Items": 120.7,
+   "Housing": 137.8,
+   "Utilities": 120.7,
+   "Transportation": 109,
+   "Health Care": 113,
+   "Miscalaneous Goods and Services": 113.5
+ },
+ {
+   "Urban Area": "Hastings, NE",
+   "Composite Index": 93.4,
+   "Grocery Items": 103.7,
+   "Housing": 89.1,
+   "Utilities": 94,
+   "Transportation": 87.6,
+   "Health Care": 85.8,
+   "Miscalaneous Goods and Services": 95.6
+ },
+ {
+   "Urban Area": "Hattiesburg, MS",
+   "Composite Index": 91.9,
+   "Grocery Items": 100.5,
+   "Housing": 74.6,
+   "Utilities": 110.3,
+   "Transportation": 96.9,
+   "Health Care": 95.4,
+   "Miscalaneous Goods and Services": 96.2
+ },
+ {
+   "Urban Area": "Hays, KS",
+   "Composite Index": 89.4,
+   "Grocery Items": 92,
+   "Housing": 78.8,
+   "Utilities": 92.4,
+   "Transportation": 97.5,
+   "Health Care": 90.7,
+   "Miscalaneous Goods and Services": 94.2
+ },
+ {
+   "Urban Area": "Hickory, NC",
+   "Composite Index": 92.9,
+   "Grocery Items": 101.1,
+   "Housing": 91.3,
+   "Utilities": 92.3,
+   "Transportation": 86.5,
+   "Health Care": 93.8,
+   "Miscalaneous Goods and Services": 93
+ },
+ {
+   "Urban Area": "Hilton, Head, Island, SC",
+   "Composite Index": 114.1,
+   "Grocery Items": 111.4,
+   "Housing": 119.8,
+   "Utilities": 100.4,
+   "Transportation": 101.6,
+   "Health Care": 110.7,
+   "Miscalaneous Goods and Services": 118.5
+ },
+ {
+   "Urban Area": "Honolulu, HI",
+   "Composite Index": 165.7,
+   "Grocery Items": 160.1,
+   "Housing": 249,
+   "Utilities": 146.6,
+   "Transportation": 126.2,
+   "Health Care": 120,
+   "Miscalaneous Goods and Services": 117.9
+ },
+ {
+   "Urban Area": "Hot, Springs, AR",
+   "Composite Index": 93.8,
+   "Grocery Items": 97.3,
+   "Housing": 85.3,
+   "Utilities": 95.7,
+   "Transportation": 85.6,
+   "Health Care": 84.8,
+   "Miscalaneous Goods and Services": 102.9
+ },
+ {
+   "Urban Area": "Houston, TX",
+   "Composite Index": 92.2,
+   "Grocery Items": 85.1,
+   "Housing": 82,
+   "Utilities": 97.7,
+   "Transportation": 99.2,
+   "Health Care": 94.6,
+   "Miscalaneous Goods and Services": 99.9
+ },
+ {
+   "Urban Area": "Huntsville, AL",
+   "Composite Index": 91.2,
+   "Grocery Items": 94.9,
+   "Housing": 78.7,
+   "Utilities": 86.1,
+   "Transportation": 99.7,
+   "Health Care": 92,
+   "Miscalaneous Goods and Services": 99.8
+ },
+ {
+   "Urban Area": "Hutchinson, KS",
+   "Composite Index": 94,
+   "Grocery Items": 89,
+   "Housing": 92.3,
+   "Utilities": 84.4,
+   "Transportation": 96.5,
+   "Health Care": 94.2,
+   "Miscalaneous Goods and Services": 99.6
+ },
+ {
+   "Urban Area": "Idaho, Falls, ID",
+   "Composite Index": 90.6,
+   "Grocery Items": 99.5,
+   "Housing": 78,
+   "Utilities": 84.9,
+   "Transportation": 102.1,
+   "Health Care": 93.2,
+   "Miscalaneous Goods and Services": 96.3
+ },
+ {
+   "Urban Area": "Indiana, County, PA",
+   "Composite Index": 93.3,
+   "Grocery Items": 99.7,
+   "Housing": 84.2,
+   "Utilities": 97.7,
+   "Transportation": 97.7,
+   "Health Care": 91.1,
+   "Miscalaneous Goods and Services": 96.4
+ },
+ {
+   "Urban Area": "Indianapolis, IN",
+   "Composite Index": 87.2,
+   "Grocery Items": 91.4,
+   "Housing": 73.4,
+   "Utilities": 86.7,
+   "Transportation": 100.5,
+   "Health Care": 93.6,
+   "Miscalaneous Goods and Services": 93.1
+ },
+ {
+   "Urban Area": "Iowa, City, IA",
+   "Composite Index": 96.2,
+   "Grocery Items": 94.9,
+   "Housing": 97.3,
+   "Utilities": 80.1,
+   "Transportation": 102.8,
+   "Health Care": 95.4,
+   "Miscalaneous Goods and Services": 99
+ },
+ {
+   "Urban Area": "Ithaca, NY",
+   "Composite Index": 102.8,
+   "Grocery Items": 102.9,
+   "Housing": 104.4,
+   "Utilities": 110.4,
+   "Transportation": 104.7,
+   "Health Care": 106.6,
+   "Miscalaneous Goods and Services": 98.1
+ },
+ {
+   "Urban Area": "Jackson, MS",
+   "Composite Index": 96.9,
+   "Grocery Items": 93,
+   "Housing": 94,
+   "Utilities": 118.1,
+   "Transportation": 92,
+   "Health Care": 95.7,
+   "Miscalaneous Goods and Services": 96.1
+ },
+ {
+   "Urban Area": "Jackson-Madison, County, TN",
+   "Composite Index": 90.2,
+   "Grocery Items": 91.1,
+   "Housing": 74.2,
+   "Utilities": 98.9,
+   "Transportation": 100,
+   "Health Care": 91.5,
+   "Miscalaneous Goods and Services": 98.1
+ },
+ {
+   "Urban Area": "Jacksonville, FL",
+   "Composite Index": 92.9,
+   "Grocery Items": 102.8,
+   "Housing": 80,
+   "Utilities": 91.9,
+   "Transportation": 103.6,
+   "Health Care": 94.5,
+   "Miscalaneous Goods and Services": 97.3
+ },
+ {
+   "Urban Area": "Jacksonville, NC",
+   "Composite Index": 96.5,
+   "Grocery Items": 103.2,
+   "Housing": 88,
+   "Utilities": 99.2,
+   "Transportation": 97.8,
+   "Health Care": 101.2,
+   "Miscalaneous Goods and Services": 99.6
+ },
+ {
+   "Urban Area": "Janesville, WI",
+   "Composite Index": 96.2,
+   "Grocery Items": 95,
+   "Housing": 91.3,
+   "Utilities": 99.3,
+   "Transportation": 99.3,
+   "Health Care": 103.1,
+   "Miscalaneous Goods and Services": 98.2
+ },
+ {
+   "Urban Area": "Jefferson, City, MO",
+   "Composite Index": 92.9,
+   "Grocery Items": 93.9,
+   "Housing": 78.5,
+   "Utilities": 97.6,
+   "Transportation": 93.3,
+   "Health Care": 95,
+   "Miscalaneous Goods and Services": 103.4
+ },
+ {
+   "Urban Area": "Johnson, City, TN",
+   "Composite Index": 86.7,
+   "Grocery Items": 92.3,
+   "Housing": 74.4,
+   "Utilities": 89.1,
+   "Transportation": 91.7,
+   "Health Care": 91.5,
+   "Miscalaneous Goods and Services": 92.6
+ },
+ {
+   "Urban Area": "Johnstown, PA",
+   "Composite Index": 92.9,
+   "Grocery Items": 97.7,
+   "Housing": 79.4,
+   "Utilities": 101,
+   "Transportation": 101.6,
+   "Health Care": 90.4,
+   "Miscalaneous Goods and Services": 98.1
+ },
+ {
+   "Urban Area": "Joliet-Will, County, IL",
+   "Composite Index": 102.2,
+   "Grocery Items": 100.9,
+   "Housing": 102.3,
+   "Utilities": 116.1,
+   "Transportation": 111.3,
+   "Health Care": 106.5,
+   "Miscalaneous Goods and Services": 95.2
+ },
+ {
+   "Urban Area": "Jonesboro, AR",
+   "Composite Index": 88.9,
+   "Grocery Items": 97.5,
+   "Housing": 75.1,
+   "Utilities": 91.1,
+   "Transportation": 88.8,
+   "Health Care": 85.9,
+   "Miscalaneous Goods and Services": 97.3
+ },
+ {
+   "Urban Area": "Joplin, MO",
+   "Composite Index": 88.8,
+   "Grocery Items": 92.2,
+   "Housing": 75.9,
+   "Utilities": 108.1,
+   "Transportation": 91.8,
+   "Health Care": 89.5,
+   "Miscalaneous Goods and Services": 92
+ },
+ {
+   "Urban Area": "Juneau, AK",
+   "Composite Index": 136.5,
+   "Grocery Items": 133.1,
+   "Housing": 165.7,
+   "Utilities": 135.1,
+   "Transportation": 121.2,
+   "Health Care": 144.4,
+   "Miscalaneous Goods and Services": 116.1
+ },
+ {
+   "Urban Area": "Kalamazoo, MI",
+   "Composite Index": 91.2,
+   "Grocery Items": 95.6,
+   "Housing": 81.3,
+   "Utilities": 101.8,
+   "Transportation": 99.4,
+   "Health Care": 92.5,
+   "Miscalaneous Goods and Services": 92.4
+ },
+ {
+   "Urban Area": "Kalispell, MT",
+   "Composite Index": 98.8,
+   "Grocery Items": 116.3,
+   "Housing": 95.5,
+   "Utilities": 82,
+   "Transportation": 103.6,
+   "Health Care": 104.8,
+   "Miscalaneous Goods and Services": 97.8
+ },
+ {
+   "Urban Area": "Kansas, City, MO-KS",
+   "Composite Index": 97.8,
+   "Grocery Items": 94.8,
+   "Housing": 89.2,
+   "Utilities": 99.8,
+   "Transportation": 100.8,
+   "Health Care": 97.2,
+   "Miscalaneous Goods and Services": 105.1
+ },
+ {
+   "Urban Area": "Kennewick-Richland-Pasco, WA",
+   "Composite Index": 92.6,
+   "Grocery Items": 90.9,
+   "Housing": 85.9,
+   "Utilities": 85.1,
+   "Transportation": 106.1,
+   "Health Care": 109.9,
+   "Miscalaneous Goods and Services": 95.2
+ },
+ {
+   "Urban Area": "Kinston, NC",
+   "Composite Index": 93.8,
+   "Grocery Items": 102.5,
+   "Housing": 76.1,
+   "Utilities": 108.8,
+   "Transportation": 96.7,
+   "Health Care": 102.9,
+   "Miscalaneous Goods and Services": 99.3
+ },
+ {
+   "Urban Area": "Knoxville, TN",
+   "Composite Index": 89.4,
+   "Grocery Items": 91.4,
+   "Housing": 82,
+   "Utilities": 95.1,
+   "Transportation": 84.2,
+   "Health Care": 88.4,
+   "Miscalaneous Goods and Services": 95.1
+ },
+ {
+   "Urban Area": "Kodiak, AK",
+   "Composite Index": 128.7,
+   "Grocery Items": 149.4,
+   "Housing": 127.8,
+   "Utilities": 131.9,
+   "Transportation": 143.4,
+   "Health Care": 130.7,
+   "Miscalaneous Goods and Services": 115.4
+ },
+ {
+   "Urban Area": "Lafayette, IN",
+   "Composite Index": 98.2,
+   "Grocery Items": 95.6,
+   "Housing": 82.4,
+   "Utilities": 116.5,
+   "Transportation": 106.2,
+   "Health Care": 116.3,
+   "Miscalaneous Goods and Services": 102.7
+ },
+ {
+   "Urban Area": "Lafayette, LA",
+   "Composite Index": 99.2,
+   "Grocery Items": 93.5,
+   "Housing": 110.1,
+   "Utilities": 81.2,
+   "Transportation": 104,
+   "Health Care": 88.8,
+   "Miscalaneous Goods and Services": 97.3
+ },
+ {
+   "Urban Area": "Lake, Charles, LA",
+   "Composite Index": 97.4,
+   "Grocery Items": 99.8,
+   "Housing": 103.4,
+   "Utilities": 89.5,
+   "Transportation": 97.1,
+   "Health Care": 84.4,
+   "Miscalaneous Goods and Services": 95.4
+ },
+ {
+   "Urban Area": "Lake, Havasu, City, AZ",
+   "Composite Index": 111.8,
+   "Grocery Items": 107,
+   "Housing": 139.3,
+   "Utilities": 95.9,
+   "Transportation": 93.5,
+   "Health Care": 98,
+   "Miscalaneous Goods and Services": 101.7
+ },
+ {
+   "Urban Area": "Lancaster, PA",
+   "Composite Index": 106.8,
+   "Grocery Items": 101.3,
+   "Housing": 118.4,
+   "Utilities": 111,
+   "Transportation": 99.7,
+   "Health Care": 95.1,
+   "Miscalaneous Goods and Services": 100.9
+ },
+ {
+   "Urban Area": "Laramie, WY",
+   "Composite Index": 97,
+   "Grocery Items": 105.1,
+   "Housing": 102.3,
+   "Utilities": 90.5,
+   "Transportation": 91.6,
+   "Health Care": 97.5,
+   "Miscalaneous Goods and Services": 92.7
+ },
+ {
+   "Urban Area": "Las, Cruces, NM",
+   "Composite Index": 100.6,
+   "Grocery Items": 103.7,
+   "Housing": 104.4,
+   "Utilities": 93.7,
+   "Transportation": 99,
+   "Health Care": 96.5,
+   "Miscalaneous Goods and Services": 99.1
+ },
+ {
+   "Urban Area": "Las, Vegas, NV",
+   "Composite Index": 101.9,
+   "Grocery Items": 106.8,
+   "Housing": 94.1,
+   "Utilities": 97.7,
+   "Transportation": 104.9,
+   "Health Care": 109,
+   "Miscalaneous Goods and Services": 106.2
+ },
+ {
+   "Urban Area": "Lawrence, KS",
+   "Composite Index": 94.6,
+   "Grocery Items": 89.1,
+   "Housing": 96,
+   "Utilities": 91.9,
+   "Transportation": 96.2,
+   "Health Care": 97.5,
+   "Miscalaneous Goods and Services": 95.6
+ },
+ {
+   "Urban Area": "Lawton, OK",
+   "Composite Index": 93.8,
+   "Grocery Items": 96.3,
+   "Housing": 87,
+   "Utilities": 87.5,
+   "Transportation": 106.9,
+   "Health Care": 96.2,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Lexington, KY",
+   "Composite Index": 92.8,
+   "Grocery Items": 86.9,
+   "Housing": 88.7,
+   "Utilities": 93.9,
+   "Transportation": 97.6,
+   "Health Care": 93.7,
+   "Miscalaneous Goods and Services": 97.1
+ },
+ {
+   "Urban Area": "Lexington-Buena, Vista-Rockbridge, VA",
+   "Composite Index": 93.7,
+   "Grocery Items": 92.1,
+   "Housing": 97.8,
+   "Utilities": 94.3,
+   "Transportation": 91.2,
+   "Health Care": 90.7,
+   "Miscalaneous Goods and Services": 91.7
+ },
+ {
+   "Urban Area": "Lima, OH",
+   "Composite Index": 93.1,
+   "Grocery Items": 101.9,
+   "Housing": 69.8,
+   "Utilities": 102.5,
+   "Transportation": 100.7,
+   "Health Care": 107.7,
+   "Miscalaneous Goods and Services": 103.2
+ },
+ {
+   "Urban Area": "Little, Rock-North, Little, Rock, AR",
+   "Composite Index": 96.5,
+   "Grocery Items": 92.9,
+   "Housing": 92.2,
+   "Utilities": 104.1,
+   "Transportation": 94,
+   "Health Care": 93.5,
+   "Miscalaneous Goods and Services": 100.4
+ },
+ {
+   "Urban Area": "Logan, UT",
+   "Composite Index": 95.6,
+   "Grocery Items": 104.7,
+   "Housing": 68.4,
+   "Utilities": 85.3,
+   "Transportation": 113.6,
+   "Health Care": 97.2,
+   "Miscalaneous Goods and Services": 113.7
+ },
+ {
+   "Urban Area": "Los, Alamos, NM",
+   "Composite Index": 109.7,
+   "Grocery Items": 97.1,
+   "Housing": 128.1,
+   "Utilities": 91.2,
+   "Transportation": 110.7,
+   "Health Care": 102.6,
+   "Miscalaneous Goods and Services": 104.7
+ },
+ {
+   "Urban Area": "Los, Angeles-Long, Beach, CA",
+   "Composite Index": 136.4,
+   "Grocery Items": 106,
+   "Housing": 207.1,
+   "Utilities": 101.7,
+   "Transportation": 113.6,
+   "Health Care": 109.1,
+   "Miscalaneous Goods and Services": 107
+ },
+ {
+   "Urban Area": "Louisville, KY",
+   "Composite Index": 87.7,
+   "Grocery Items": 81.6,
+   "Housing": 78.7,
+   "Utilities": 99.1,
+   "Transportation": 96.9,
+   "Health Care": 87.2,
+   "Miscalaneous Goods and Services": 91.9
+ },
+ {
+   "Urban Area": "Loveland, CO",
+   "Composite Index": 91,
+   "Grocery Items": 102.7,
+   "Housing": 79.3,
+   "Utilities": 89.6,
+   "Transportation": 91.4,
+   "Health Care": 100.3,
+   "Miscalaneous Goods and Services": 95.7
+ },
+ {
+   "Urban Area": "Lubbock, TX",
+   "Composite Index": 89.1,
+   "Grocery Items": 90,
+   "Housing": 80.4,
+   "Utilities": 74.8,
+   "Transportation": 97.6,
+   "Health Care": 98.3,
+   "Miscalaneous Goods and Services": 97.1
+ },
+ {
+   "Urban Area": "Lufkin, TX",
+   "Composite Index": 92.4,
+   "Grocery Items": 87.8,
+   "Housing": 83.4,
+   "Utilities": 98.7,
+   "Transportation": 94,
+   "Health Care": 105.5,
+   "Miscalaneous Goods and Services": 98.3
+ },
+ {
+   "Urban Area": "Lynchburg, VA",
+   "Composite Index": 95.1,
+   "Grocery Items": 90.7,
+   "Housing": 92.7,
+   "Utilities": 109.7,
+   "Transportation": 88.8,
+   "Health Care": 100.1,
+   "Miscalaneous Goods and Services": 95.8
+ },
+ {
+   "Urban Area": "Manchester, NH",
+   "Composite Index": 116.8,
+   "Grocery Items": 102.3,
+   "Housing": 117,
+   "Utilities": 124.5,
+   "Transportation": 100.1,
+   "Health Care": 116.1,
+   "Miscalaneous Goods and Services": 125
+ },
+ {
+   "Urban Area": "Manhattan, KS",
+   "Composite Index": 95,
+   "Grocery Items": 92.5,
+   "Housing": 98.7,
+   "Utilities": 86.9,
+   "Transportation": 99,
+   "Health Care": 91.6,
+   "Miscalaneous Goods and Services": 94.4
+ },
+ {
+   "Urban Area": "Mankato, MN",
+   "Composite Index": 93,
+   "Grocery Items": 93.8,
+   "Housing": 76.5,
+   "Utilities": 113.5,
+   "Transportation": 103.1,
+   "Health Care": 104.3,
+   "Miscalaneous Goods and Services": 96.4
+ },
+ {
+   "Urban Area": "Marietta, GA",
+   "Composite Index": 94.8,
+   "Grocery Items": 96.8,
+   "Housing": 84.7,
+   "Utilities": 90.3,
+   "Transportation": 97.1,
+   "Health Care": 107.9,
+   "Miscalaneous Goods and Services": 101.9
+ },
+ {
+   "Urban Area": "Marion-McDowell, County, NC",
+   "Composite Index": 92.1,
+   "Grocery Items": 103.1,
+   "Housing": 87.9,
+   "Utilities": 94,
+   "Transportation": 89.5,
+   "Health Care": 96.3,
+   "Miscalaneous Goods and Services": 90.9
+ },
+ {
+   "Urban Area": "Marshfield, WI",
+   "Composite Index": 94.2,
+   "Grocery Items": 95.3,
+   "Housing": 92.2,
+   "Utilities": 99.9,
+   "Transportation": 96.8,
+   "Health Care": 103.6,
+   "Miscalaneous Goods and Services": 91.7
+ },
+ {
+   "Urban Area": "Martinsburg-Berkeley, County, WV",
+   "Composite Index": 89.6,
+   "Grocery Items": 91.5,
+   "Housing": 82.7,
+   "Utilities": 85.9,
+   "Transportation": 103.9,
+   "Health Care": 99.9,
+   "Miscalaneous Goods and Services": 90.6
+ },
+ {
+   "Urban Area": "Martinsville-Henry, County, VA",
+   "Composite Index": 87.1,
+   "Grocery Items": 94,
+   "Housing": 77.6,
+   "Utilities": 89.1,
+   "Transportation": 82.9,
+   "Health Care": 87.6,
+   "Miscalaneous Goods and Services": 93.2
+ },
+ {
+   "Urban Area": "Mason, City, IA",
+   "Composite Index": 89.1,
+   "Grocery Items": 89.4,
+   "Housing": 73.1,
+   "Utilities": 105.6,
+   "Transportation": 99.5,
+   "Health Care": 94.8,
+   "Miscalaneous Goods and Services": 94.2
+ },
+ {
+   "Urban Area": "McAllen, TX",
+   "Composite Index": 85,
+   "Grocery Items": 79.8,
+   "Housing": 77.6,
+   "Utilities": 103.1,
+   "Transportation": 92.4,
+   "Health Care": 97.9,
+   "Miscalaneous Goods and Services": 84.3
+ },
+ {
+   "Urban Area": "Memphis, TN",
+   "Composite Index": 88.2,
+   "Grocery Items": 92.7,
+   "Housing": 76.2,
+   "Utilities": 86.9,
+   "Transportation": 91.5,
+   "Health Care": 98.6,
+   "Miscalaneous Goods and Services": 95.2
+ },
+ {
+   "Urban Area": "Miami-Dade, County, FL",
+   "Composite Index": 106,
+   "Grocery Items": 110.9,
+   "Housing": 107.7,
+   "Utilities": 91.9,
+   "Transportation": 108.8,
+   "Health Care": 105.7,
+   "Miscalaneous Goods and Services": 106.2
+ },
+ {
+   "Urban Area": "Middlesex-Monmouth, NJ",
+   "Composite Index": 124.8,
+   "Grocery Items": 108.9,
+   "Housing": 154.1,
+   "Utilities": 128.6,
+   "Transportation": 103.9,
+   "Health Care": 108.9,
+   "Miscalaneous Goods and Services": 112.2
+ },
+ {
+   "Urban Area": "Midland, TX",
+   "Composite Index": 93.2,
+   "Grocery Items": 89.7,
+   "Housing": 89.2,
+   "Utilities": 93.4,
+   "Transportation": 95.7,
+   "Health Care": 98.7,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Milwaukee-Waukesha, WI",
+   "Composite Index": 101.9,
+   "Grocery Items": 98.1,
+   "Housing": 112.7,
+   "Utilities": 98.6,
+   "Transportation": 99.2,
+   "Health Care": 108.1,
+   "Miscalaneous Goods and Services": 94.8
+ },
+ {
+   "Urban Area": "Minneapolis, MN",
+   "Composite Index": 111,
+   "Grocery Items": 111.6,
+   "Housing": 116.8,
+   "Utilities": 104.7,
+   "Transportation": 103.7,
+   "Health Care": 105.4,
+   "Miscalaneous Goods and Services": 110.4
+ },
+ {
+   "Urban Area": "Minot, ND",
+   "Composite Index": 99.9,
+   "Grocery Items": 99.3,
+   "Housing": 95.9,
+   "Utilities": 73.5,
+   "Transportation": 98.2,
+   "Health Care": 91,
+   "Miscalaneous Goods and Services": 113.6
+ },
+ {
+   "Urban Area": "Missoula, MT",
+   "Composite Index": 99.4,
+   "Grocery Items": 110.2,
+   "Housing": 92.2,
+   "Utilities": 98.3,
+   "Transportation": 102.2,
+   "Health Care": 107.2,
+   "Miscalaneous Goods and Services": 100.1
+ },
+ {
+   "Urban Area": "Mobile, AL",
+   "Composite Index": 92.7,
+   "Grocery Items": 102.7,
+   "Housing": 80.4,
+   "Utilities": 104.4,
+   "Transportation": 93,
+   "Health Care": 86.5,
+   "Miscalaneous Goods and Services": 96.7
+ },
+ {
+   "Urban Area": "Monroe, LA",
+   "Composite Index": 92.7,
+   "Grocery Items": 95.8,
+   "Housing": 83,
+   "Utilities": 89.1,
+   "Transportation": 97.5,
+   "Health Care": 96,
+   "Miscalaneous Goods and Services": 99.3
+ },
+ {
+   "Urban Area": "Montgomery, AL",
+   "Composite Index": 99.2,
+   "Grocery Items": 102.9,
+   "Housing": 96,
+   "Utilities": 108.4,
+   "Transportation": 99.6,
+   "Health Care": 88,
+   "Miscalaneous Goods and Services": 99.1
+ },
+ {
+   "Urban Area": "Morgantown, WV",
+   "Composite Index": 100.6,
+   "Grocery Items": 93.9,
+   "Housing": 111.9,
+   "Utilities": 89.9,
+   "Transportation": 100.7,
+   "Health Care": 96.1,
+   "Miscalaneous Goods and Services": 97.1
+ },
+ {
+   "Urban Area": "Morristown, TN",
+   "Composite Index": 90.9,
+   "Grocery Items": 91.6,
+   "Housing": 81.5,
+   "Utilities": 80.5,
+   "Transportation": 93.9,
+   "Health Care": 90.1,
+   "Miscalaneous Goods and Services": 101.4
+ },
+ {
+   "Urban Area": "Muncie, IN",
+   "Composite Index": 91,
+   "Grocery Items": 91,
+   "Housing": 80.3,
+   "Utilities": 98.5,
+   "Transportation": 94.5,
+   "Health Care": 87.4,
+   "Miscalaneous Goods and Services": 97.6
+ },
+ {
+   "Urban Area": "Murfreesboro-Smyrna, TN",
+   "Composite Index": 88.2,
+   "Grocery Items": 94.3,
+   "Housing": 76.2,
+   "Utilities": 81,
+   "Transportation": 92.7,
+   "Health Care": 95.8,
+   "Miscalaneous Goods and Services": 96.2
+ },
+ {
+   "Urban Area": "Muskogee, OK",
+   "Composite Index": 86,
+   "Grocery Items": 98,
+   "Housing": 68.3,
+   "Utilities": 97.5,
+   "Transportation": 80.8,
+   "Health Care": 96.7,
+   "Miscalaneous Goods and Services": 93.5
+ },
+ {
+   "Urban Area": "Myrtle, Beach, SC",
+   "Composite Index": 95.2,
+   "Grocery Items": 105.7,
+   "Housing": 78.4,
+   "Utilities": 104.5,
+   "Transportation": 94.7,
+   "Health Care": 100.4,
+   "Miscalaneous Goods and Services": 102.4
+ },
+ {
+   "Urban Area": "Nacogdoches, TX",
+   "Composite Index": 92.5,
+   "Grocery Items": 91,
+   "Housing": 83.3,
+   "Utilities": 97.7,
+   "Transportation": 93.8,
+   "Health Care": 102.6,
+   "Miscalaneous Goods and Services": 98
+ },
+ {
+   "Urban Area": "Nashville-Franklin, TN",
+   "Composite Index": 88.9,
+   "Grocery Items": 91.7,
+   "Housing": 71.3,
+   "Utilities": 82.6,
+   "Transportation": 92.5,
+   "Health Care": 87.3,
+   "Miscalaneous Goods and Services": 104.5
+ },
+ {
+   "Urban Area": "Nassau, County, NY",
+   "Composite Index": 145.7,
+   "Grocery Items": 123,
+   "Housing": 206.7,
+   "Utilities": 140.7,
+   "Transportation": 113.1,
+   "Health Care": 119.7,
+   "Miscalaneous Goods and Services": 115.3
+ },
+ {
+   "Urban Area": "New, Haven, CT",
+   "Composite Index": 122.1,
+   "Grocery Items": 117.9,
+   "Housing": 134.9,
+   "Utilities": 123.5,
+   "Transportation": 106.3,
+   "Health Care": 112.7,
+   "Miscalaneous Goods and Services": 117.9
+ },
+ {
+   "Urban Area": "New, York, (Brooklyn), NY",
+   "Composite Index": 181.7,
+   "Grocery Items": 130.6,
+   "Housing": 317.8,
+   "Utilities": 165,
+   "Transportation": 103,
+   "Health Care": 111.5,
+   "Miscalaneous Goods and Services": 119.5
+ },
+ {
+   "Urban Area": "New, York, (Manhattan), NY",
+   "Composite Index": 216.7,
+   "Grocery Items": 154.3,
+   "Housing": 386.7,
+   "Utilities": 169.6,
+   "Transportation": 120.3,
+   "Health Care": 130.2,
+   "Miscalaneous Goods and Services": 145.7
+ },
+ {
+   "Urban Area": "New, York, (Queens), NY",
+   "Composite Index": 159,
+   "Grocery Items": 128.3,
+   "Housing": 230.8,
+   "Utilities": 172,
+   "Transportation": 108.8,
+   "Health Care": 118,
+   "Miscalaneous Goods and Services": 123.9
+ },
+ {
+   "Urban Area": "Newark-Elizabeth, NJ",
+   "Composite Index": 129.7,
+   "Grocery Items": 111.6,
+   "Housing": 168.5,
+   "Utilities": 129.2,
+   "Transportation": 103.9,
+   "Health Care": 103.1,
+   "Miscalaneous Goods and Services": 113.9
+ },
+ {
+   "Urban Area": "Norman, OK",
+   "Composite Index": 94.4,
+   "Grocery Items": 95.3,
+   "Housing": 88.7,
+   "Utilities": 91.6,
+   "Transportation": 104,
+   "Health Care": 96.6,
+   "Miscalaneous Goods and Services": 96.8
+ },
+ {
+   "Urban Area": "Oakland, CA",
+   "Composite Index": 139.1,
+   "Grocery Items": 116.8,
+   "Housing": 198.8,
+   "Utilities": 94.7,
+   "Transportation": 113.6,
+   "Health Care": 119.9,
+   "Miscalaneous Goods and Services": 119
+ },
+ {
+   "Urban Area": "Odessa, TX",
+   "Composite Index": 90.9,
+   "Grocery Items": 91.2,
+   "Housing": 88.1,
+   "Utilities": 88.8,
+   "Transportation": 93.6,
+   "Health Care": 96.6,
+   "Miscalaneous Goods and Services": 92.4
+ },
+ {
+   "Urban Area": "Oklahoma, City, OK",
+   "Composite Index": 91.7,
+   "Grocery Items": 92.9,
+   "Housing": 86,
+   "Utilities": 88.1,
+   "Transportation": 92.6,
+   "Health Care": 99.4,
+   "Miscalaneous Goods and Services": 96.2
+ },
+ {
+   "Urban Area": "Olympia, WA",
+   "Composite Index": 104.1,
+   "Grocery Items": 107.4,
+   "Housing": 102.2,
+   "Utilities": 82.1,
+   "Transportation": 114.9,
+   "Health Care": 120.5,
+   "Miscalaneous Goods and Services": 106
+ },
+ {
+   "Urban Area": "Omaha, NE",
+   "Composite Index": 88.3,
+   "Grocery Items": 92,
+   "Housing": 79.3,
+   "Utilities": 89.9,
+   "Transportation": 100,
+   "Health Care": 96.8,
+   "Miscalaneous Goods and Services": 89.7
+ },
+ {
+   "Urban Area": "Orange, County, CA",
+   "Composite Index": 146.4,
+   "Grocery Items": 104.5,
+   "Housing": 242.8,
+   "Utilities": 103.2,
+   "Transportation": 114.6,
+   "Health Care": 111.6,
+   "Miscalaneous Goods and Services": 105.2
+ },
+ {
+   "Urban Area": "Orlando, FL",
+   "Composite Index": 97.8,
+   "Grocery Items": 97.8,
+   "Housing": 85.4,
+   "Utilities": 108.5,
+   "Transportation": 101.8,
+   "Health Care": 95.5,
+   "Miscalaneous Goods and Services": 104.5
+ },
+ {
+   "Urban Area": "Paducah, KY",
+   "Composite Index": 87.3,
+   "Grocery Items": 94.8,
+   "Housing": 75.8,
+   "Utilities": 96.5,
+   "Transportation": 86.6,
+   "Health Care": 90.3,
+   "Miscalaneous Goods and Services": 91.3
+ },
+ {
+   "Urban Area": "Palm, Springs, CA",
+   "Composite Index": 121.8,
+   "Grocery Items": 111.5,
+   "Housing": 154.2,
+   "Utilities": 112.7,
+   "Transportation": 110.2,
+   "Health Care": 100.8,
+   "Miscalaneous Goods and Services": 106.1
+ },
+ {
+   "Urban Area": "Panama, City, FL",
+   "Composite Index": 99.4,
+   "Grocery Items": 93.7,
+   "Housing": 101.5,
+   "Utilities": 99.7,
+   "Transportation": 108.8,
+   "Health Care": 94.5,
+   "Miscalaneous Goods and Services": 97.6
+ },
+ {
+   "Urban Area": "Paris, TX",
+   "Composite Index": 88.9,
+   "Grocery Items": 93.6,
+   "Housing": 80,
+   "Utilities": 87.4,
+   "Transportation": 94.1,
+   "Health Care": 94,
+   "Miscalaneous Goods and Services": 93
+ },
+ {
+   "Urban Area": "Pascagoula, MS",
+   "Composite Index": 92.3,
+   "Grocery Items": 101,
+   "Housing": 84.3,
+   "Utilities": 91.4,
+   "Transportation": 97.4,
+   "Health Care": 91.6,
+   "Miscalaneous Goods and Services": 94.6
+ },
+ {
+   "Urban Area": "Peoria, IL",
+   "Composite Index": 96.3,
+   "Grocery Items": 93.4,
+   "Housing": 95,
+   "Utilities": 97.2,
+   "Transportation": 101.4,
+   "Health Care": 95.8,
+   "Miscalaneous Goods and Services": 96.8
+ },
+ {
+   "Urban Area": "Philadelphia, PA",
+   "Composite Index": 126.5,
+   "Grocery Items": 124.9,
+   "Housing": 141.3,
+   "Utilities": 135.9,
+   "Transportation": 105.8,
+   "Health Care": 108.2,
+   "Miscalaneous Goods and Services": 119.6
+ },
+ {
+   "Urban Area": "Phoenix, AZ",
+   "Composite Index": 100.7,
+   "Grocery Items": 108.1,
+   "Housing": 90.4,
+   "Utilities": 96.6,
+   "Transportation": 108.9,
+   "Health Care": 108.8,
+   "Miscalaneous Goods and Services": 104.6
+ },
+ {
+   "Urban Area": "Pittsburgh, PA",
+   "Composite Index": 91.5,
+   "Grocery Items": 104.1,
+   "Housing": 74.4,
+   "Utilities": 97,
+   "Transportation": 105.9,
+   "Health Care": 90.1,
+   "Miscalaneous Goods and Services": 95.8
+ },
+ {
+   "Urban Area": "Pittsfield, MA",
+   "Composite Index": 110.6,
+   "Grocery Items": 115,
+   "Housing": 96.2,
+   "Utilities": 161.9,
+   "Transportation": 98.9,
+   "Health Care": 105,
+   "Miscalaneous Goods and Services": 110
+ },
+ {
+   "Urban Area": "Plano, TX",
+   "Composite Index": 97.4,
+   "Grocery Items": 101.3,
+   "Housing": 85.2,
+   "Utilities": 103.9,
+   "Transportation": 101.8,
+   "Health Care": 102.9,
+   "Miscalaneous Goods and Services": 102.6
+ },
+ {
+   "Urban Area": "Plattsburgh, NY",
+   "Composite Index": 100.1,
+   "Grocery Items": 98.9,
+   "Housing": 95.1,
+   "Utilities": 119.4,
+   "Transportation": 105.5,
+   "Health Care": 113,
+   "Miscalaneous Goods and Services": 95.9
+ },
+ {
+   "Urban Area": "Ponca, City, OK",
+   "Composite Index": 90,
+   "Grocery Items": 94.8,
+   "Housing": 76.6,
+   "Utilities": 93,
+   "Transportation": 94.4,
+   "Health Care": 94.4,
+   "Miscalaneous Goods and Services": 97
+ },
+ {
+   "Urban Area": "Portland, ME",
+   "Composite Index": 116.5,
+   "Grocery Items": 101.8,
+   "Housing": 143,
+   "Utilities": 102.9,
+   "Transportation": 111.8,
+   "Health Care": 109.7,
+   "Miscalaneous Goods and Services": 105.5
+ },
+ {
+   "Urban Area": "Portland, OR",
+   "Composite Index": 111.3,
+   "Grocery Items": 105.8,
+   "Housing": 130.8,
+   "Utilities": 87.1,
+   "Transportation": 105.8,
+   "Health Care": 113.6,
+   "Miscalaneous Goods and Services": 105.1
+ },
+ {
+   "Urban Area": "Prescott-Prescott, Valley, AZ",
+   "Composite Index": 103.7,
+   "Grocery Items": 95.2,
+   "Housing": 118.1,
+   "Utilities": 91.8,
+   "Transportation": 100.3,
+   "Health Care": 97.8,
+   "Miscalaneous Goods and Services": 99.7
+ },
+ {
+   "Urban Area": "Providence, RI",
+   "Composite Index": 123.3,
+   "Grocery Items": 113.4,
+   "Housing": 129,
+   "Utilities": 129,
+   "Transportation": 102.5,
+   "Health Care": 113.2,
+   "Miscalaneous Goods and Services": 128.1
+ },
+ {
+   "Urban Area": "Pryor, Creek, OK",
+   "Composite Index": 84.5,
+   "Grocery Items": 95,
+   "Housing": 71.5,
+   "Utilities": 82.7,
+   "Transportation": 86.6,
+   "Health Care": 86,
+   "Miscalaneous Goods and Services": 91.5
+ },
+ {
+   "Urban Area": "Pueblo, CO",
+   "Composite Index": 85.6,
+   "Grocery Items": 100.5,
+   "Housing": 71.5,
+   "Utilities": 80.1,
+   "Transportation": 93.8,
+   "Health Care": 94.1,
+   "Miscalaneous Goods and Services": 90.1
+ },
+ {
+   "Urban Area": "Quincy, IL",
+   "Composite Index": 95.5,
+   "Grocery Items": 97.4,
+   "Housing": 94.5,
+   "Utilities": 95.5,
+   "Transportation": 94.2,
+   "Health Care": 99.8,
+   "Miscalaneous Goods and Services": 95.5
+ },
+ {
+   "Urban Area": "Raleigh, NC",
+   "Composite Index": 98.2,
+   "Grocery Items": 104.2,
+   "Housing": 88.8,
+   "Utilities": 105.6,
+   "Transportation": 96.7,
+   "Health Care": 101,
+   "Miscalaneous Goods and Services": 101.9
+ },
+ {
+   "Urban Area": "Reno-Sparks, NV",
+   "Composite Index": 101.1,
+   "Grocery Items": 105.4,
+   "Housing": 101.5,
+   "Utilities": 91.2,
+   "Transportation": 107.3,
+   "Health Care": 101.8,
+   "Miscalaneous Goods and Services": 100
+ },
+ {
+   "Urban Area": "Richmond, IN",
+   "Composite Index": 90.8,
+   "Grocery Items": 83.3,
+   "Housing": 84.6,
+   "Utilities": 106.4,
+   "Transportation": 98.4,
+   "Health Care": 95.1,
+   "Miscalaneous Goods and Services": 91.7
+ },
+ {
+   "Urban Area": "Richmond, VA",
+   "Composite Index": 104.5,
+   "Grocery Items": 103.6,
+   "Housing": 103.2,
+   "Utilities": 113.9,
+   "Transportation": 100.8,
+   "Health Care": 112.6,
+   "Miscalaneous Goods and Services": 103.2
+ },
+ {
+   "Urban Area": "Rio, Rancho, NM",
+   "Composite Index": 95.1,
+   "Grocery Items": 92,
+   "Housing": 90.5,
+   "Utilities": 88.6,
+   "Transportation": 94.7,
+   "Health Care": 100.2,
+   "Miscalaneous Goods and Services": 101.8
+ },
+ {
+   "Urban Area": "Riverside, City, CA",
+   "Composite Index": 112.5,
+   "Grocery Items": 104.9,
+   "Housing": 136.3,
+   "Utilities": 99.9,
+   "Transportation": 113.4,
+   "Health Care": 104.4,
+   "Miscalaneous Goods and Services": 99.1
+ },
+ {
+   "Urban Area": "Roanoke, VA",
+   "Composite Index": 94.1,
+   "Grocery Items": 89.7,
+   "Housing": 92.2,
+   "Utilities": 104.1,
+   "Transportation": 91.1,
+   "Health Care": 97.9,
+   "Miscalaneous Goods and Services": 94.8
+ },
+ {
+   "Urban Area": "Rochester, MN",
+   "Composite Index": 99.2,
+   "Grocery Items": 89.6,
+   "Housing": 91.1,
+   "Utilities": 104.8,
+   "Transportation": 106.3,
+   "Health Care": 109.5,
+   "Miscalaneous Goods and Services": 105
+ },
+ {
+   "Urban Area": "Rochester, NY",
+   "Composite Index": 100,
+   "Grocery Items": 94.6,
+   "Housing": 94.2,
+   "Utilities": 114.4,
+   "Transportation": 108.7,
+   "Health Care": 99.7,
+   "Miscalaneous Goods and Services": 100.2
+ },
+ {
+   "Urban Area": "Rockford, IL",
+   "Composite Index": 92.4,
+   "Grocery Items": 92.6,
+   "Housing": 74.7,
+   "Utilities": 111.2,
+   "Transportation": 105.8,
+   "Health Care": 103.3,
+   "Miscalaneous Goods and Services": 96.8
+ },
+ {
+   "Urban Area": "Roswell, NM",
+   "Composite Index": 95.9,
+   "Grocery Items": 105.6,
+   "Housing": 82.9,
+   "Utilities": 104.3,
+   "Transportation": 97.5,
+   "Health Care": 101.2,
+   "Miscalaneous Goods and Services": 99.9
+ },
+ {
+   "Urban Area": "Round, Rock, TX",
+   "Composite Index": 89.7,
+   "Grocery Items": 81.9,
+   "Housing": 78,
+   "Utilities": 107,
+   "Transportation": 87.6,
+   "Health Care": 96.6,
+   "Miscalaneous Goods and Services": 97.6
+ },
+ {
+   "Urban Area": "Sacramento, CA",
+   "Composite Index": 116.2,
+   "Grocery Items": 114.7,
+   "Housing": 135.7,
+   "Utilities": 109.6,
+   "Transportation": 114.4,
+   "Health Care": 110.8,
+   "Miscalaneous Goods and Services": 102.8
+ },
+ {
+   "Urban Area": "Salina, KS",
+   "Composite Index": 86.9,
+   "Grocery Items": 86.9,
+   "Housing": 76,
+   "Utilities": 87,
+   "Transportation": 94.7,
+   "Health Care": 94.9,
+   "Miscalaneous Goods and Services": 93.1
+ },
+ {
+   "Urban Area": "Salt, Lake, City, UT",
+   "Composite Index": 100.6,
+   "Grocery Items": 100.1,
+   "Housing": 108,
+   "Utilities": 72.5,
+   "Transportation": 102.1,
+   "Health Care": 98.8,
+   "Miscalaneous Goods and Services": 102.9
+ },
+ {
+   "Urban Area": "San, Angelo, TX",
+   "Composite Index": 92.4,
+   "Grocery Items": 89.3,
+   "Housing": 84,
+   "Utilities": 106,
+   "Transportation": 97.6,
+   "Health Care": 96.7,
+   "Miscalaneous Goods and Services": 94.9
+ },
+ {
+   "Urban Area": "San, Antonio, TX",
+   "Composite Index": 95.7,
+   "Grocery Items": 84.9,
+   "Housing": 95.3,
+   "Utilities": 82.8,
+   "Transportation": 100.7,
+   "Health Care": 99.9,
+   "Miscalaneous Goods and Services": 102.2
+ },
+ {
+   "Urban Area": "San, Diego, CA",
+   "Composite Index": 132.3,
+   "Grocery Items": 105.5,
+   "Housing": 194.4,
+   "Utilities": 101.9,
+   "Transportation": 113.1,
+   "Health Care": 111.5,
+   "Miscalaneous Goods and Services": 105.8
+ },
+ {
+   "Urban Area": "San, Francisco, CA",
+   "Composite Index": 164,
+   "Grocery Items": 111.9,
+   "Housing": 281,
+   "Utilities": 94.5,
+   "Transportation": 113,
+   "Health Care": 117,
+   "Miscalaneous Goods and Services": 124.3
+ },
+ {
+   "Urban Area": "San, Jose, CA",
+   "Composite Index": 156.1,
+   "Grocery Items": 115.3,
+   "Housing": 260.3,
+   "Utilities": 137.2,
+   "Transportation": 114,
+   "Health Care": 119,
+   "Miscalaneous Goods and Services": 103.6
+ },
+ {
+   "Urban Area": "San, Marcos, TX",
+   "Composite Index": 94.8,
+   "Grocery Items": 88.7,
+   "Housing": 100.1,
+   "Utilities": 86.8,
+   "Transportation": 90.1,
+   "Health Care": 92.6,
+   "Miscalaneous Goods and Services": 96.8
+ },
+ {
+   "Urban Area": "Sarasota, FL",
+   "Composite Index": 101.5,
+   "Grocery Items": 107.7,
+   "Housing": 102.9,
+   "Utilities": 97.4,
+   "Transportation": 102.5,
+   "Health Care": 105.2,
+   "Miscalaneous Goods and Services": 98.1
+ },
+ {
+   "Urban Area": "Savannah, GA",
+   "Composite Index": 93.5,
+   "Grocery Items": 94.7,
+   "Housing": 84,
+   "Utilities": 94,
+   "Transportation": 98.4,
+   "Health Care": 99,
+   "Miscalaneous Goods and Services": 99.1
+ },
+ {
+   "Urban Area": "Seattle, WA",
+   "Composite Index": 121.4,
+   "Grocery Items": 115.1,
+   "Housing": 140.3,
+   "Utilities": 85.7,
+   "Transportation": 118.8,
+   "Health Care": 119.9,
+   "Miscalaneous Goods and Services": 119.1
+ },
+ {
+   "Urban Area": "Seguin, TX",
+   "Composite Index": 90.7,
+   "Grocery Items": 90.7,
+   "Housing": 78.5,
+   "Utilities": 103.8,
+   "Transportation": 95.6,
+   "Health Care": 96.9,
+   "Miscalaneous Goods and Services": 95.1
+ },
+ {
+   "Urban Area": "Sheboygan, WI",
+   "Composite Index": 101.4,
+   "Grocery Items": 94.3,
+   "Housing": 97.5,
+   "Utilities": 117.3,
+   "Transportation": 105.9,
+   "Health Care": 105.5,
+   "Miscalaneous Goods and Services": 100.8
+ },
+ {
+   "Urban Area": "Shreveport-Bossier, City, LA",
+   "Composite Index": 95.3,
+   "Grocery Items": 95.2,
+   "Housing": 93.5,
+   "Utilities": 89.4,
+   "Transportation": 93.4,
+   "Health Care": 93.1,
+   "Miscalaneous Goods and Services": 99.6
+ },
+ {
+   "Urban Area": "Sierra, Vista, AZ",
+   "Composite Index": 97.9,
+   "Grocery Items": 96.5,
+   "Housing": 99.7,
+   "Utilities": 97.2,
+   "Transportation": 104,
+   "Health Care": 96.1,
+   "Miscalaneous Goods and Services": 95.5
+ },
+ {
+   "Urban Area": "Sioux, Falls, SD",
+   "Composite Index": 94.1,
+   "Grocery Items": 91.5,
+   "Housing": 86.6,
+   "Utilities": 101.6,
+   "Transportation": 86.9,
+   "Health Care": 102.2,
+   "Miscalaneous Goods and Services": 100.6
+ },
+ {
+   "Urban Area": "Slidell-St., Tammany, Parish, LA",
+   "Composite Index": 97,
+   "Grocery Items": 95.1,
+   "Housing": 101,
+   "Utilities": 82.2,
+   "Transportation": 96.2,
+   "Health Care": 93.4,
+   "Miscalaneous Goods and Services": 99.4
+ },
+ {
+   "Urban Area": "South, Bend, IN",
+   "Composite Index": 91.9,
+   "Grocery Items": 91.3,
+   "Housing": 84.2,
+   "Utilities": 92.3,
+   "Transportation": 95.4,
+   "Health Care": 96.3,
+   "Miscalaneous Goods and Services": 97.3
+ },
+ {
+   "Urban Area": "Spokane, WA",
+   "Composite Index": 93.9,
+   "Grocery Items": 92.4,
+   "Housing": 85.7,
+   "Utilities": 89.5,
+   "Transportation": 109.1,
+   "Health Care": 110,
+   "Miscalaneous Goods and Services": 96.5
+ },
+ {
+   "Urban Area": "Springfield, IL",
+   "Composite Index": 85.8,
+   "Grocery Items": 89.7,
+   "Housing": 70.1,
+   "Utilities": 79.8,
+   "Transportation": 104.5,
+   "Health Care": 106.5,
+   "Miscalaneous Goods and Services": 91.7
+ },
+ {
+   "Urban Area": "Springfield, MO",
+   "Composite Index": 88,
+   "Grocery Items": 93.2,
+   "Housing": 76.8,
+   "Utilities": 83.2,
+   "Transportation": 96.8,
+   "Health Care": 95.3,
+   "Miscalaneous Goods and Services": 93.8
+ },
+ {
+   "Urban Area": "St., Cloud, MN",
+   "Composite Index": 98.3,
+   "Grocery Items": 101.7,
+   "Housing": 80.7,
+   "Utilities": 117.2,
+   "Transportation": 99.9,
+   "Health Care": 102,
+   "Miscalaneous Goods and Services": 105.8
+ },
+ {
+   "Urban Area": "St., George, UT",
+   "Composite Index": 95.9,
+   "Grocery Items": 99.9,
+   "Housing": 94.2,
+   "Utilities": 85.9,
+   "Transportation": 100.4,
+   "Health Care": 87.8,
+   "Miscalaneous Goods and Services": 98.4
+ },
+ {
+   "Urban Area": "St., Joseph, MO",
+   "Composite Index": 92.3,
+   "Grocery Items": 95.4,
+   "Housing": 86.5,
+   "Utilities": 93.7,
+   "Transportation": 90.1,
+   "Health Care": 94.9,
+   "Miscalaneous Goods and Services": 96
+ },
+ {
+   "Urban Area": "St., Louis, MO-IL",
+   "Composite Index": 90.4,
+   "Grocery Items": 98.4,
+   "Housing": 74.6,
+   "Utilities": 92.9,
+   "Transportation": 99,
+   "Health Care": 100.8,
+   "Miscalaneous Goods and Services": 96.5
+ },
+ {
+   "Urban Area": "St., Paul, MN",
+   "Composite Index": 110,
+   "Grocery Items": 107,
+   "Housing": 112.9,
+   "Utilities": 106.8,
+   "Transportation": 103.4,
+   "Health Care": 106.7,
+   "Miscalaneous Goods and Services": 112.2
+ },
+ {
+   "Urban Area": "Stamford, CT",
+   "Composite Index": 146.9,
+   "Grocery Items": 121.8,
+   "Housing": 212.6,
+   "Utilities": 121.3,
+   "Transportation": 110,
+   "Health Care": 113.3,
+   "Miscalaneous Goods and Services": 122.1
+ },
+ {
+   "Urban Area": "Staunton-Augusta, County, VA",
+   "Composite Index": 96.2,
+   "Grocery Items": 98.3,
+   "Housing": 93.7,
+   "Utilities": 100,
+   "Transportation": 94.5,
+   "Health Care": 98.1,
+   "Miscalaneous Goods and Services": 96.6
+ },
+ {
+   "Urban Area": "Stillwater, OK",
+   "Composite Index": 90.1,
+   "Grocery Items": 95.5,
+   "Housing": 81.2,
+   "Utilities": 97.9,
+   "Transportation": 88.8,
+   "Health Care": 95.7,
+   "Miscalaneous Goods and Services": 93.1
+ },
+ {
+   "Urban Area": "Sumter, SC",
+   "Composite Index": 96.3,
+   "Grocery Items": 103.4,
+   "Housing": 90.2,
+   "Utilities": 108.4,
+   "Transportation": 97.8,
+   "Health Care": 91.3,
+   "Miscalaneous Goods and Services": 95.3
+ },
+ {
+   "Urban Area": "Syracuse, NY",
+   "Composite Index": 101.5,
+   "Grocery Items": 98.6,
+   "Housing": 91.4,
+   "Utilities": 118.4,
+   "Transportation": 108.3,
+   "Health Care": 97.8,
+   "Miscalaneous Goods and Services": 104.8
+ },
+ {
+   "Urban Area": "Tacoma, WA",
+   "Composite Index": 109.5,
+   "Grocery Items": 111.3,
+   "Housing": 116.6,
+   "Utilities": 83.1,
+   "Transportation": 109,
+   "Health Care": 115.1,
+   "Miscalaneous Goods and Services": 110.2
+ },
+ {
+   "Urban Area": "Tampa, FL",
+   "Composite Index": 92.4,
+   "Grocery Items": 96.3,
+   "Housing": 84.7,
+   "Utilities": 93.8,
+   "Transportation": 103.3,
+   "Health Care": 98.4,
+   "Miscalaneous Goods and Services": 93.4
+ },
+ {
+   "Urban Area": "Temple, TX",
+   "Composite Index": 87.4,
+   "Grocery Items": 83.7,
+   "Housing": 71.8,
+   "Utilities": 107.6,
+   "Transportation": 97.9,
+   "Health Care": 91.2,
+   "Miscalaneous Goods and Services": 92.8
+ },
+ {
+   "Urban Area": "Thomasville-Lexington, NC",
+   "Composite Index": 89.2,
+   "Grocery Items": 105.5,
+   "Housing": 77.2,
+   "Utilities": 80.7,
+   "Transportation": 88.8,
+   "Health Care": 109.1,
+   "Miscalaneous Goods and Services": 93.5
+ },
+ {
+   "Urban Area": "Topeka, KS",
+   "Composite Index": 91.8,
+   "Grocery Items": 92.9,
+   "Housing": 84,
+   "Utilities": 85.8,
+   "Transportation": 97.4,
+   "Health Care": 93.2,
+   "Miscalaneous Goods and Services": 98.1
+ },
+ {
+   "Urban Area": "Troy-Miami, County, OH",
+   "Composite Index": 95.4,
+   "Grocery Items": 96.4,
+   "Housing": 83.9,
+   "Utilities": 123.3,
+   "Transportation": 99.2,
+   "Health Care": 89.2,
+   "Miscalaneous Goods and Services": 96.2
+ },
+ {
+   "Urban Area": "Truckee-Nevada, County, CA",
+   "Composite Index": 146.9,
+   "Grocery Items": 132.2,
+   "Housing": 208.3,
+   "Utilities": 114.3,
+   "Transportation": 121.5,
+   "Health Care": 112,
+   "Miscalaneous Goods and Services": 120.5
+ },
+ {
+   "Urban Area": "Tucson, AZ",
+   "Composite Index": 96.5,
+   "Grocery Items": 97.2,
+   "Housing": 91.9,
+   "Utilities": 86.7,
+   "Transportation": 104.6,
+   "Health Care": 99.2,
+   "Miscalaneous Goods and Services": 100.5
+ },
+ {
+   "Urban Area": "Tulsa, OK",
+   "Composite Index": 88.4,
+   "Grocery Items": 91.9,
+   "Housing": 66.5,
+   "Utilities": 95.2,
+   "Transportation": 99.1,
+   "Health Care": 94.6,
+   "Miscalaneous Goods and Services": 100.5
+ },
+ {
+   "Urban Area": "Tupelo, MS",
+   "Composite Index": 88.1,
+   "Grocery Items": 91.1,
+   "Housing": 72.3,
+   "Utilities": 110.1,
+   "Transportation": 93.8,
+   "Health Care": 86.6,
+   "Miscalaneous Goods and Services": 92.7
+ },
+ {
+   "Urban Area": "Tuscaloosa, AL",
+   "Composite Index": 94.6,
+   "Grocery Items": 104.9,
+   "Housing": 80.6,
+   "Utilities": 105.9,
+   "Transportation": 102.8,
+   "Health Care": 90.2,
+   "Miscalaneous Goods and Services": 97.4
+ },
+ {
+   "Urban Area": "Twin, Falls, ID",
+   "Composite Index": 91.5,
+   "Grocery Items": 95.5,
+   "Housing": 81.4,
+   "Utilities": 97,
+   "Transportation": 99.2,
+   "Health Care": 93.3,
+   "Miscalaneous Goods and Services": 94.6
+ },
+ {
+   "Urban Area": "Tyler, TX",
+   "Composite Index": 96.3,
+   "Grocery Items": 92.7,
+   "Housing": 91.5,
+   "Utilities": 102.1,
+   "Transportation": 100.2,
+   "Health Care": 93.1,
+   "Miscalaneous Goods and Services": 99.3
+ },
+ {
+   "Urban Area": "Valdosta, GA",
+   "Composite Index": 94.1,
+   "Grocery Items": 111.8,
+   "Housing": 85.3,
+   "Utilities": 89,
+   "Transportation": 96.7,
+   "Health Care": 102.2,
+   "Miscalaneous Goods and Services": 94.5
+ },
+ {
+   "Urban Area": "Vancouver, WA",
+   "Composite Index": 94.8,
+   "Grocery Items": 96.9,
+   "Housing": 82.2,
+   "Utilities": 91.8,
+   "Transportation": 106.1,
+   "Health Care": 114.3,
+   "Miscalaneous Goods and Services": 100.1
+ },
+ {
+   "Urban Area": "Vero, Beach-Indian, River, FL",
+   "Composite Index": 97.4,
+   "Grocery Items": 109.1,
+   "Housing": 83.5,
+   "Utilities": 104.5,
+   "Transportation": 97.8,
+   "Health Care": 97.7,
+   "Miscalaneous Goods and Services": 102.5
+ },
+ {
+   "Urban Area": "Waco, TX",
+   "Composite Index": 88.9,
+   "Grocery Items": 81.8,
+   "Housing": 88.5,
+   "Utilities": 85.3,
+   "Transportation": 97.6,
+   "Health Care": 90.9,
+   "Miscalaneous Goods and Services": 90.5
+ },
+ {
+   "Urban Area": "Washington-Arlington-Alexandria, DC-VA",
+   "Composite Index": 140.1,
+   "Grocery Items": 107.9,
+   "Housing": 226.4,
+   "Utilities": 97.3,
+   "Transportation": 109.3,
+   "Health Care": 103.4,
+   "Miscalaneous Goods and Services": 103.7
+ },
+ {
+   "Urban Area": "Waterloo-Cedar, Falls, IA",
+   "Composite Index": 91.7,
+   "Grocery Items": 89.5,
+   "Housing": 89.6,
+   "Utilities": 88.2,
+   "Transportation": 99.4,
+   "Health Care": 95.9,
+   "Miscalaneous Goods and Services": 92.8
+ },
+ {
+   "Urban Area": "Wausau, WI",
+   "Composite Index": 96.5,
+   "Grocery Items": 100,
+   "Housing": 89.6,
+   "Utilities": 98.4,
+   "Transportation": 97.5,
+   "Health Care": 101.3,
+   "Miscalaneous Goods and Services": 99.7
+ },
+ {
+   "Urban Area": "Weatherford, TX",
+   "Composite Index": 91.4,
+   "Grocery Items": 95.9,
+   "Housing": 79.7,
+   "Utilities": 107.4,
+   "Transportation": 96.2,
+   "Health Care": 93.1,
+   "Miscalaneous Goods and Services": 93.3
+ },
+ {
+   "Urban Area": "Wichita, Falls, TX",
+   "Composite Index": 86.5,
+   "Grocery Items": 91.9,
+   "Housing": 84,
+   "Utilities": 84.4,
+   "Transportation": 82.5,
+   "Health Care": 94.5,
+   "Miscalaneous Goods and Services": 87.4
+ },
+ {
+   "Urban Area": "Wichita, KS",
+   "Composite Index": 91.8,
+   "Grocery Items": 90.5,
+   "Housing": 83.6,
+   "Utilities": 89.7,
+   "Transportation": 100.6,
+   "Health Care": 96.7,
+   "Miscalaneous Goods and Services": 97.1
+ },
+ {
+   "Urban Area": "Williamsport-Lycoming, Co, PA",
+   "Composite Index": 100.7,
+   "Grocery Items": 103.5,
+   "Housing": 96.3,
+   "Utilities": 127.7,
+   "Transportation": 91.8,
+   "Health Care": 92.6,
+   "Miscalaneous Goods and Services": 98.9
+ },
+ {
+   "Urban Area": "Wilmington, DE",
+   "Composite Index": 105.2,
+   "Grocery Items": 108.1,
+   "Housing": 102,
+   "Utilities": 115.4,
+   "Transportation": 98.6,
+   "Health Care": 108.7,
+   "Miscalaneous Goods and Services": 105.2
+ },
+ {
+   "Urban Area": "Wilmington, NC",
+   "Composite Index": 98.8,
+   "Grocery Items": 108,
+   "Housing": 89.7,
+   "Utilities": 108.5,
+   "Transportation": 97.6,
+   "Health Care": 100.1,
+   "Miscalaneous Goods and Services": 100.3
+ },
+ {
+   "Urban Area": "Winchester, VA-WV",
+   "Composite Index": 102.3,
+   "Grocery Items": 104.6,
+   "Housing": 94.5,
+   "Utilities": 98.2,
+   "Transportation": 96.8,
+   "Health Care": 105,
+   "Miscalaneous Goods and Services": 110.9
+ },
+ {
+   "Urban Area": "Winston-Salem, NC",
+   "Composite Index": 92.4,
+   "Grocery Items": 98.5,
+   "Housing": 82.9,
+   "Utilities": 88.5,
+   "Transportation": 83.3,
+   "Health Care": 99.3,
+   "Miscalaneous Goods and Services": 101.5
+ },
+ {
+   "Urban Area": "Wooster, OH",
+   "Composite Index": 92.6,
+   "Grocery Items": 99.5,
+   "Housing": 72.1,
+   "Utilities": 123.4,
+   "Transportation": 103,
+   "Health Care": 94.6,
+   "Miscalaneous Goods and Services": 95.2
+ },
+ {
+   "Urban Area": "Yakima, WA",
+   "Composite Index": 95.8,
+   "Grocery Items": 99.8,
+   "Housing": 86.9,
+   "Utilities": 86.8,
+   "Transportation": 105.5,
+   "Health Care": 117.1,
+   "Miscalaneous Goods and Services": 99.2
+ },
+ {
+   "Urban Area": "York, County, PA",
+   "Composite Index": 102.1,
+   "Grocery Items": 98.4,
+   "Housing": 106,
+   "Utilities": 102.6,
+   "Transportation": 97.7,
+   "Health Care": 96.8,
+   "Miscalaneous Goods and Services": 102
+ },
+ {
+   "Urban Area": "Youngstown-Warren, OH",
+   "Composite Index": 90.4,
+   "Grocery Items": 92.6,
+   "Housing": 77.7,
+   "Utilities": 110.2,
+   "Transportation": 92.4,
+   "Health Care": 86.9,
+   "Miscalaneous Goods and Services": 94.4
+ },
+ {
+   "Urban Area": "Yuma, AZ",
+   "Composite Index": 101.2,
+   "Grocery Items": 107.4,
+   "Housing": 96.4,
+   "Utilities": 112.2,
+   "Transportation": 104.6,
+   "Health Care": 107.8,
+   "Miscalaneous Goods and Services": 97.6
+ },
+ {
+   "Urban Area": "Source: C2ER, Arlington, VA, ACCRA Cost of Living Index, Annual Average 2010 (copyright).",
+   "Composite Index": null,
+   "Grocery Items": null,
+   "Housing": null,
+   "Utilities": null,
+   "Transportation": null,
+   "Health Care": null,
+   "Miscalaneous Goods and Services": null
+ },
+ {
+   "Urban Area": "Internet release date: 9/30/2011",
+   "Composite Index": null,
+   "Grocery Items": null,
+   "Housing": null,
+   "Utilities": null,
+   "Transportation": null,
+   "Health Care": null,
+   "Miscalaneous Goods and Services": null
+ }
+]
+
+</script>
