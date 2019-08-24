@@ -55,7 +55,7 @@ export default{
          },
          costOfLiving(){
              let studentLoan = parseFloat(this.studentLoans).toFixed(2)
-             let costOfLiving = parseFloat(3200000/this.selectedCity["Composite Index"])
+             let costOfLiving = parseFloat(32000*(this.selectedCity["Composite Index"]/100))
              return (parseFloat(costOfLiving) + parseFloat(studentLoan)).toFixed(2)
          }
      },
