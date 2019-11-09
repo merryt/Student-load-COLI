@@ -1,8 +1,8 @@
 <template>
   <div class="calculator">
-    <a href="/student_loans.html" class="nav-item">Student Loans</a>
+    <a href="/" class="nav-item">Home</a>
     <div class="houseAfordibility">
-      <h2>Can you buy a house?</h2>
+      <h2>Can you buy your first house?</h2>
 
 
       <h4>Where do you live?</h4>
@@ -28,7 +28,7 @@
         <h2>{{showResults.confidenceText}}</h2>
         <div><img alt="" :src="showResults.confidenceImage"/></div>
 
-        <p>In {{selectedCity["Urban Area"]}} you should be able to get a house for about <span class="result">${{costOfHousing}}</span></p>
+        <p>In {{selectedCity["Urban Area"]}} you should be able to get a starter house for about <span class="result">${{costOfHousing}}</span></p>
 
         <p><button>waaaa, houses are way more expensive then that</button></p>
         <div v-if="false">You are checking affordability with an online calculator, don't be picky... get a reasonable house.</div>
