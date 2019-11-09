@@ -25,13 +25,12 @@
       <input name="Money" type="text" placeholder="Don't count the money you may make one day when your twitch stream really takes off" v-model="income" />
 
       <div v-if="showResults">
-        <h1>{{showResults.confidenceScore}}</h1>
         <h2>{{showResults.confidenceText}}</h2>
         <div><img alt="" :src="showResults.confidenceImage"/></div>
 
         <p>In {{selectedCity["Urban Area"]}} you should be able to get a house for about <span class="result">${{costOfHousing}}</span></p>
 
-        <p><a href="#">waaaa, that isn't right, houses are way more expensive then that</a></p>
+        <p><button>waaaa, houses are way more expensive then that</button></p>
         <div v-if="false">You are checking affordability with an online calculator, don't be picky... get a reasonable house.</div>
         <p>
           With your downpayment you will be need a loan of {{loanSize}}
@@ -49,15 +48,24 @@
 <style>
  input{
      width: calc(100% - 20px);
-
  }
  .calculator{
      width: 100%;
      margin: 10px
  }
  .result{
-     font-size:50px;
+     font-size:25px;
  }
+ button{
+     background: #3075ff;
+     border-radius: 10px;
+     border: none;
+     color: white;
+     font-size: 19px;
+     text-transform: uppercase;
+     padding: 10px;
+ }
+
 </style>
 
 
@@ -93,7 +101,7 @@
              return citylist
          },
          costOfHousing(){
-             let costOfHousing = parseFloat(230000*(this.selectedCity["Housing"]/100))
+             let costOfHousing = parseFloat(150000*(this.selectedCity["Housing"]/100))
 
              return (parseFloat(costOfHousing).toFixed(2))
          },
