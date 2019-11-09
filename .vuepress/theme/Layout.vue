@@ -32,15 +32,20 @@ p, ul, ol
 
 <script>
  import Home from './layouts/Home.vue'
+ import StudentLoans from './layouts/StudentLoans.vue'
+ import HowMuchHouseCanIAfford from './layouts/HowMuchHouseCanIAfford.vue'
  export default{
-     components: {Home},
+     components: {Home,StudentLoans, HowMuchHouseCanIAfford},
      computed: {
          layout(){
              const{path} = this.$page
+             console.log(path)
              if(path === "/"){
                  return 'Home'
-             }else{
-                 return 'Post'
+             }else if(path === "/student_loans.html"){
+                 return 'StudentLoans'
+             }else if(path == '/how-much-house-can-i-afford.html'){
+                 return 'how-much-house-can-i-afford'
              }
          }
      }
