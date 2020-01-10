@@ -34,8 +34,9 @@ p, ul, ol
  import Home from './layouts/Home.vue'
  import StudentLoans from './layouts/StudentLoans.vue'
  import HowMuchHouseCanIAfford from './layouts/HowMuchHouseCanIAfford.vue'
+ import StockDistribution from './layouts/stockDistribution.vue'
  export default{
-     components: {Home,StudentLoans, HowMuchHouseCanIAfford},
+     components: {Home,StudentLoans, HowMuchHouseCanIAfford, StockDistribution},
      computed: {
          layout(){
              const{path} = this.$page
@@ -46,6 +47,8 @@ p, ul, ol
                  return 'StudentLoans'
              }else if(path == '/how-much-house-can-i-afford.html'){
                  return 'how-much-house-can-i-afford'
+             }else if(path == '/stock-distribution.html'){
+                 return 'StockDistribution'
              }
          }
      }
